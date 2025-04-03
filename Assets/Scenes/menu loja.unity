@@ -884,6 +884,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "configura\xE7ao": {fileID: 1738083224}
   inicial: {fileID: 1320510818}
+  Pause: {fileID: 1320510818}
+  Despause: {fileID: 1320510818}
 --- !u!4 &596250906
 Transform:
   m_ObjectHideFlags: 0

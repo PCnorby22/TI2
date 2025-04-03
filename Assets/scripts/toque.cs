@@ -108,6 +108,15 @@ public partial class @Toque: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""apertar"",
+                    ""type"": ""Button"",
+                    ""id"": ""356225bd-1ee7-4a39-b43b-e5faa6a0ec0a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @Toque: IInputActionCollection2, IDisposable
                     ""action"": ""TouchPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f0d6b52-2b02-427b-a029-144b91d64c3a"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""apertar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -142,6 +162,7 @@ public partial class @Toque: IInputActionCollection2, IDisposable
         m_touch = asset.FindActionMap("touch", throwIfNotFound: true);
         m_touch_TouchPosition = m_touch.FindAction("TouchPosition", throwIfNotFound: true);
         m_touch_TouchPress = m_touch.FindAction("TouchPress", throwIfNotFound: true);
+        m_touch_apertar = m_touch.FindAction("apertar", throwIfNotFound: true);
     }
 
     ~@Toque()
@@ -224,6 +245,7 @@ public partial class @Toque: IInputActionCollection2, IDisposable
     private List<ITouchActions> m_TouchActionsCallbackInterfaces = new List<ITouchActions>();
     private readonly InputAction m_touch_TouchPosition;
     private readonly InputAction m_touch_TouchPress;
+    private readonly InputAction m_touch_apertar;
     /// <summary>
     /// Provides access to input actions defined in input action map "touch".
     /// </summary>
@@ -243,6 +265,10 @@ public partial class @Toque: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "touch/TouchPress".
         /// </summary>
         public InputAction @TouchPress => m_Wrapper.m_touch_TouchPress;
+        /// <summary>
+        /// Provides access to the underlying input action "touch/apertar".
+        /// </summary>
+        public InputAction @apertar => m_Wrapper.m_touch_apertar;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -275,6 +301,9 @@ public partial class @Toque: IInputActionCollection2, IDisposable
             @TouchPress.started += instance.OnTouchPress;
             @TouchPress.performed += instance.OnTouchPress;
             @TouchPress.canceled += instance.OnTouchPress;
+            @apertar.started += instance.OnApertar;
+            @apertar.performed += instance.OnApertar;
+            @apertar.canceled += instance.OnApertar;
         }
 
         /// <summary>
@@ -292,6 +321,9 @@ public partial class @Toque: IInputActionCollection2, IDisposable
             @TouchPress.started -= instance.OnTouchPress;
             @TouchPress.performed -= instance.OnTouchPress;
             @TouchPress.canceled -= instance.OnTouchPress;
+            @apertar.started -= instance.OnApertar;
+            @apertar.performed -= instance.OnApertar;
+            @apertar.canceled -= instance.OnApertar;
         }
 
         /// <summary>
@@ -346,5 +378,12 @@ public partial class @Toque: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTouchPress(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "apertar" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnApertar(InputAction.CallbackContext context);
     }
 }

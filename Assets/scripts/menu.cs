@@ -9,7 +9,7 @@ public class menu : MonoBehaviour
     [SerializeField]
     GameObject configuraçao;
     [SerializeField]
-    GameObject inicial;
+    GameObject inicial, Pause, Despause;
     // Start is called before the first frame update
     public void play()
     {
@@ -51,5 +51,19 @@ public class menu : MonoBehaviour
     public void voltarmenu()
     {
         SceneManager.LoadScene("inicio");
+    }
+    public void pause()
+    {
+        Pause.SetActive(false);
+        Despause.SetActive(true);
+        inicial.SetActive(true);
+        Time.timeScale = 0.0f;
+    }
+    public void depause()
+    {
+        Despause.SetActive(false);
+        inicial.SetActive(false);
+        Pause.SetActive(true);
+        Time.timeScale = 1.0f;
     }
 }

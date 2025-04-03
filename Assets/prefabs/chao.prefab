@@ -121,7 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a2d31603063c14da8782bdf5ca195c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cenario: {fileID: 5878702625339577782, guid: 1c3e232038f1766438d7222914b613ac, type: 3}
+  cenario:
+  - {fileID: 6235670207044798569}
+  - {fileID: 5878702625339577782, guid: 1c3e232038f1766438d7222914b613ac, type: 3}
+  - {fileID: 6704707980162823763, guid: a087084ed8044db41b32eb164bbea495, type: 3}
 --- !u!1 &6235670207044798569
 GameObject:
   m_ObjectHideFlags: 0

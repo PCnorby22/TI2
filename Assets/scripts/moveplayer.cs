@@ -36,7 +36,7 @@ public class moveplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = Vector3.forward * Time.deltaTime*velocidade;
+        rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.fixedDeltaTime);
     }
     private void TouchStarted(InputAction.CallbackContext context)
     {
@@ -58,14 +58,13 @@ public class moveplayer : MonoBehaviour
             Vector3 startWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(startouchPosition.x, startouchPosition.y, 10));
             Vector3 endWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endTouchPosition.x, endTouchPosition.y, 10));
             Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);
-            if (swipeDirection.normalized.y > 0)
+            if (swipeDirection.normalized.y > 0 && this.transform.position.x !=-15)
             {
-                this.transform.position = new Vector3();
-
+                rb.MovePosition(this.transform.position + new Vector3(-15, 0, 0));
             }
-            else
+            else if(swipeDirection.normalized.x < 0 && this.transform.position.x != 15)
             {
-                this.transform.position = new Vector3();
+                rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
             }
         }
     }
