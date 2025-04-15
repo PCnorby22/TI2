@@ -1,18 +1,22 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.UI;
 
 public class moveplayer : MonoBehaviour
 {
+    public GameObject voltar, reiniciar, derrota, vitoria;
     Rigidbody rb;
-    public int velocidade;
+    public int velocidade, vida;
     private PlayerInput playerInput;
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
     private Vector2 startouchPosition;
     private Vector2 endTouchPosition;
     private bool isSwiping;
+    public  TextMeshProUGUI vidaTela;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -32,6 +36,7 @@ public class moveplayer : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        vidaTela.text = vida.ToString();
     }
     // Update is called once per frame
     void Update()
@@ -66,6 +71,15 @@ public class moveplayer : MonoBehaviour
             {
                 rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
             }
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.tag == "obistaculo")
+        {
+            vida--;
+            vidaTela.text = vida.ToString();
         }
     }
 }
