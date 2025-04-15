@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class moveplayer : MonoBehaviour
 {
     public GameObject voltar, reiniciar, derrota, vitoria;
+    public Slider distancia;
     Rigidbody rb;
     public int velocidade, vida;
     private PlayerInput playerInput;
@@ -17,6 +18,7 @@ public class moveplayer : MonoBehaviour
     private Vector2 endTouchPosition;
     private bool isSwiping;
     public  TextMeshProUGUI vidaTela;
+    Vector3 inicio;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -35,13 +37,39 @@ public class moveplayer : MonoBehaviour
     }
     void Start()
     {
+        Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         vidaTela.text = vida.ToString();
+        inicio = this.transform.position;
     }
     // Update is called once per frame
     void Update()
     {
+        if (this.transform.position.x < -15)
+        {
+            this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+        }
+        else if (this.transform.position.x > 15)
+        {
+            this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+        }
         rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.fixedDeltaTime);
+        Vector3 dis = this.transform.position - inicio;
+        distancia.value = ((int)dis.magnitude);
+        if (vida <= 0)
+        {
+            derrota.SetActive(true);
+            voltar.SetActive(true);
+            reiniciar.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else if (dis.magnitude>=500f)
+        {
+            vitoria.SetActive(true);
+            voltar.SetActive(true);
+            reiniciar.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
     private void TouchStarted(InputAction.CallbackContext context)
     {
@@ -63,11 +91,11 @@ public class moveplayer : MonoBehaviour
             Vector3 startWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(startouchPosition.x, startouchPosition.y, 10));
             Vector3 endWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endTouchPosition.x, endTouchPosition.y, 10));
             Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);
-            if (swipeDirection.normalized.y > 0 && this.transform.position.x !=-15)
+            if (swipeDirection.normalized.x > 0 && this.transform.position.x > -15)
             {
-                rb.MovePosition(this.transform.position + new Vector3(-15, 0, 0));
+                rb.MovePosition( this.transform.position + new Vector3(-15, 0, 0));
             }
-            else if(swipeDirection.normalized.x < 0 && this.transform.position.x != 15)
+            else if (swipeDirection.normalized.x < 0 && this.transform.position.x < 15)
             {
                 rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
             }
@@ -75,6 +103,7 @@ public class moveplayer : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        
         Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "obistaculo")
         {

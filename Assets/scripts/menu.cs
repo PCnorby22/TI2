@@ -52,6 +52,10 @@ public class menu : MonoBehaviour
     {
         SceneManager.LoadScene("inicio");
     }
+    public void reiniciar()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void pause()
     {
         Pause.SetActive(false);
