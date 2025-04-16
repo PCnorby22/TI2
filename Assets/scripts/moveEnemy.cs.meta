@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1dd8453427164134fb51e865cc5408b9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - voltar: {instanceID: 0}
+  - reiniciar: {instanceID: 0}
+  - derrota: {instanceID: 0}
+  - vitoria: {instanceID: 0}
+  - distancia: {instanceID: 0}
+  - Enemy: {fileID: 919132149155446097, guid: 16537ee1260eebf498c0ac271d9251a7, type: 3}
+  - vidaTela: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
