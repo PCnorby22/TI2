@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class menu : MonoBehaviour
 {
     [SerializeField]
-    GameObject configuraçao;
+    GameObject configuracao;
     [SerializeField]
     GameObject inicial, Pause, Despause;
     // Start is called before the first frame update
@@ -34,14 +34,14 @@ public class menu : MonoBehaviour
     public void config()
     {
         inicial.SetActive(false);
-        configuraçao.SetActive(true);
+        configuracao.SetActive(true);
     }
     public void voltar()
     {
         if (SceneManager.GetActiveScene().name == "inicio")
         {
             inicial.SetActive(true);
-            configuraçao.SetActive(false);
+            configuracao.SetActive(false);
         }
         else
         {
