@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class moveEnemy : MonoBehaviour
     public Slider distancia;
     Rigidbody rb;
     public int velocidade, vida;
-    public Object Enemy;
+    public UnityEngine.Object Enemy;
     
     public TextMeshProUGUI vidaTela;
     Vector3 inicio;
@@ -29,7 +30,7 @@ public class moveEnemy : MonoBehaviour
     }
     void Start()
     {
-        
+        Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         inicio = this.transform.position;
     }
@@ -37,7 +38,14 @@ public class moveEnemy : MonoBehaviour
     void Update()
     {
         EnemyMovement();
-    }
+        if (vida <= 0)
+        {
+            vitoria.SetActive(true);
+
+        }
+
+
+        }
   
 
 
@@ -71,6 +79,23 @@ public class moveEnemy : MonoBehaviour
         {
             vida--;
            
+        }
+        if (collision.gameObject.tag == "obistaculo")
+        {
+            velocidade = -velocidade;
+            while (Time.deltaTime % 30 != 0)
+            {
+                
+            }
+            velocidade = Math.Abs(velocidade);
+            if (this.transform.position.x > -15 && this.transform.position.x <0)
+            {
+                this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+            }
+            else if (this.transform.position.x < 15 && this.transform.position.x > 0)
+            {
+                this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+            }
         }
     }
 }
