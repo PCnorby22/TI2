@@ -1,0 +1,5 @@
+C:/trabalhos/jogosdigitais/P2/TI2/TI2/.utmp/RelWithDebInfo/5655321b/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/trabalhos/jogosdigitais/P2/TI2/TI2/.utmp/RelWithDebInfo/5655321b/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/trabalhos/jogosdigitais/P2/TI2/TI2/.utmp/RelWithDebInfo/5655321b/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/trabalhos/jogosdigitais/P2/TI2/TI2/.utmp/RelWithDebInfo/5655321b/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+C:/trabalhos/jogosdigitais/P2/TI2/TI2/.utmp/RelWithDebInfo/5655321b/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir

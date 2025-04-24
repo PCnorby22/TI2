@@ -99,12 +99,14 @@ public class moveplayer : MonoBehaviour
             {
                 rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
             }
+            if (swipeDirection.normalized.y > 1)
+            {
+                rb.AddForce(transform.up*20);
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "obistaculo")
         {
             vida--;

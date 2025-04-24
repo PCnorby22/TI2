@@ -8,93 +8,42 @@ using UnityEngine.UI;
 
 public class moveEnemy : MonoBehaviour
 {
-    public GameObject voltar, reiniciar, derrota, vitoria;
-    public Slider distancia;
+    public float rayDistance = 20f;
+    public LayerMask layerMask;
     Rigidbody rb;
-    public int velocidade, vida;
-    public UnityEngine.Object Enemy;
-    
-    public TextMeshProUGUI vidaTela;
-    Vector3 inicio;
-    private void Awake()
-    {
-        
-  
-    }
-    private void OnEnable()
-    {
-       
-    }
-    private void OnDisable()
-    {
-    }
+    public int velocidade;
     void Start()
     {
-        Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
-        inicio = this.transform.position;
     }
     // Update is called once per frame
     void Update()
     {
-        EnemyMovement();
-        if (vida <= 0)
-        {
-            vitoria.SetActive(true);
-
-        }
-
-
-        }
-  
-
-
-    private void EnemyMovement()
-    {
-        if (this.transform.position.x < -15)
-        {
-            this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
-        }
-        else if (this.transform.position.x > 15)
-        {
-            this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
-        }
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1 * velocidade * Time.fixedDeltaTime);
-        Vector3 dis = this.transform.position - inicio;
-        distancia.value = ((int)dis.magnitude);
-        if(Time.deltaTime%20 == 0)
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit,rayDistance) && !hit.collider.isTrigger)
         {
-            velocidade = velocidade/2;
-        }
-        if (Time.deltaTime%30 == 0)
-        {
-            velocidade = velocidade*2;
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag == "player")
-        {
-            vida--;
-           
-        }
-        if (collision.gameObject.tag == "obistaculo")
-        {
-            velocidade = -velocidade;
-            while (Time.deltaTime % 30 != 0)
+            int x = UnityEngine.Random.Range(0, 2);
+            Debug.Log(hit.collider.gameObject.name);
+            if (transform.position.x==0)
             {
-                
+                if (x==0) 
+                {
+                    transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+                }
+                else
+                {
+                    transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+                }
             }
-            velocidade = Math.Abs(velocidade);
-            if (this.transform.position.x > -15 && this.transform.position.x <0)
+            else if(transform.position.x == -15)
             {
-                this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+                transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
             }
-            else if (this.transform.position.x < 15 && this.transform.position.x > 0)
+            else
             {
-                this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+                transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
             }
         }
     }
