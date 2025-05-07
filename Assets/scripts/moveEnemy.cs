@@ -25,7 +25,7 @@ public class moveEnemy : MonoBehaviour
         if (Physics.Raycast(ray, out hit,rayDistance) && !hit.collider.isTrigger)
         {
             int x = UnityEngine.Random.Range(0, 2);
-            Debug.Log(hit.collider.gameObject.name);
+            //Debug.Log(hit.collider.gameObject.name);
             if (transform.position.x==0)
             {
                 if (x==0) 

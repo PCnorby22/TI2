@@ -8,9 +8,10 @@ using UnityEngine.UI;
 public class moveplayer : MonoBehaviour
 {
     public GameObject voltar, reiniciar, derrota, vitoria;
-    public Slider distancia;
+    public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida;
+    int dinheiroC=0;
     private PlayerInput playerInput;
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
@@ -111,6 +112,21 @@ public class moveplayer : MonoBehaviour
         {
             vida--;
             vidaTela.text = vida.ToString();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "moeda")
+        {
+            Debug.Log(other.gameObject.name);
+            dinheiroC += 1;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "energia")
+        {
+            Debug.Log(other.gameObject.name);
+            poder.value += 1;
+            Destroy(other.gameObject);
         }
     }
 }
