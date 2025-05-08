@@ -58,7 +58,8 @@ public class moveplayer : MonoBehaviour
         {
             this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
         }
-        rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.fixedDeltaTime);
+        rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.timeScale);
+        Debug.Log(1 * velocidade * Time.timeScale);
         Vector3 dis = this.transform.position - inicio;
         distancia.value = ((int)dis.magnitude);
         if (vida <= 0)
@@ -78,20 +79,24 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log(distancia.value);
         if (distancia.value == 200)
         {
-            velocidade += 500;
+            velocidade += 10;
             Esperar(2);
         }
         else if (distancia.value == 400)
         {
-            velocidade += 500;
+            velocidade += 10;
         }
-        if (this.transform.position.z >= inimigo.transform.position.z)
+        if (this.transform.position.z >= (inimigo.transform.position.z-10))
         {
-            velocidade = 500;
+            velocidade = 10;
         }
+        else if (inimigo.transform.position.z - this.transform.position.z >= 51)
+        {
+            velocidade = 30;
+        }
+        Debug.Log(inimigo.transform.position.z - this.transform.position.z >= 51);
     }
     private void TouchStarted(InputAction.CallbackContext context)
     {
@@ -134,6 +139,10 @@ public class moveplayer : MonoBehaviour
         {
             vida--;
             vidaTela.text = vida.ToString();
+        }
+        else if(collision.gameObject.tag == "inimigo")
+        {
+            inimigo.GetComponent<moveEnemy>().dano(2);
         }
     }
     private void OnTriggerEnter(Collider other)

@@ -19,7 +19,7 @@ public class menu : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name!="fase1") 
+        if (SceneManager.GetActiveScene().name!="fase1"|| SceneManager.GetActiveScene().name != "menu fase") 
         {
             dinheiroP.text = "dindin player:\n9999999999";
         }
@@ -74,6 +74,7 @@ public class menu : MonoBehaviour
         Pause.SetActive(false);
         Despause.SetActive(true);
         inicial.SetActive(true);
+        configuracao.SetActive(true);
         Time.timeScale = 0.0f;
     }
     public void depause()
@@ -81,6 +82,7 @@ public class menu : MonoBehaviour
         Despause.SetActive(false);
         inicial.SetActive(false);
         Pause.SetActive(true);
+        configuracao.SetActive(false);
         Time.timeScale = 1.0f;
     }
 }

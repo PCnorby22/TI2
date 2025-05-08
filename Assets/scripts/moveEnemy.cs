@@ -12,6 +12,7 @@ public class moveEnemy : MonoBehaviour
     public LayerMask layerMask;
     Rigidbody rb;
     public int velocidade;
+    public Slider vida;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,7 +20,7 @@ public class moveEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1 * velocidade * Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1 * velocidade * Time.timeScale);
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,rayDistance) && !hit.collider.isTrigger)
@@ -46,5 +47,10 @@ public class moveEnemy : MonoBehaviour
                 transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
             }
         }
+    }
+
+    public void dano(int d)
+    {
+        vida.value -= d;
     }
 }
