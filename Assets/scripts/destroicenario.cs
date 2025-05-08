@@ -14,7 +14,7 @@ public class destroicenario : MonoBehaviour
     {
         if ((this.transform.position - player.GetComponent<Transform>().position).normalized.z < 0.0f)
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject,5);
         }
     }
 }

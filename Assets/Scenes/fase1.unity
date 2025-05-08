@@ -912,6 +912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: personagem
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
+      propertyPath: m_TagString
+      value: inimigo
+      objectReference: {fileID: 0}
     - target: {fileID: 5116126285572329423, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1385,13 +1389,13 @@ PrefabInstance:
       addedObject: {fileID: 1047644391}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 04c412cdc52c530429ae0029e72f0b97, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1047644393}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 04c412cdc52c530429ae0029e72f0b97, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1047644392}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 04c412cdc52c530429ae0029e72f0b97, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1047644394}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 04c412cdc52c530429ae0029e72f0b97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1047644395}
   m_SourcePrefab: {fileID: 100100000, guid: 04c412cdc52c530429ae0029e72f0b97, type: 3}
 --- !u!4 &1047644390 stripped
 Transform:
@@ -1441,34 +1445,13 @@ MonoBehaviour:
   reiniciar: {fileID: 1024912471}
   derrota: {fileID: 364637817}
   vitoria: {fileID: 1251901763}
+  inimigo: {fileID: 0}
   distancia: {fileID: 1966771562}
   poder: {fileID: 1512533447}
   velocidade: 1000
   vida: 5
   vidaTela: {fileID: 705008928}
   dindin: {fileID: 202064203}
---- !u!64 &1047644393
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369486921}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7662355866022286182, guid: 04c412cdc52c530429ae0029e72f0b97, type: 3}
 --- !u!114 &1047644394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,6 +1482,27 @@ MonoBehaviour:
   m_DefaultActionMap: touch
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 1494714756}
+--- !u!65 &1047644395
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369486921}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2101848, y: 0.33865535, z: 0.57075197}
+  m_Center: {x: -0.035219613, y: 0.24348463, z: 0.15200119}
 --- !u!1 &1094313937
 GameObject:
   m_ObjectHideFlags: 0
@@ -3015,6 +3019,7 @@ MonoBehaviour:
   inicial: {fileID: 216555910}
   Pause: {fileID: 247579982}
   Despause: {fileID: 1206026415}
+  dinheiroP: {fileID: 202064203}
 --- !u!4 &1917620495
 Transform:
   m_ObjectHideFlags: 0

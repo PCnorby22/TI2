@@ -19,7 +19,10 @@ public class menu : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        dinheiroP.text = "dindin player:\n9999999999";
+        if (SceneManager.GetActiveScene().name!="fase1") 
+        {
+            dinheiroP.text = "dindin player:\n9999999999";
+        }
     }
     public void play()
     {

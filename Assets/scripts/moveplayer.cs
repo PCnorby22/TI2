@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,7 +9,7 @@ using UnityEngine.UI;
 
 public class moveplayer : MonoBehaviour
 {
-    public GameObject voltar, reiniciar, derrota, vitoria;
+    public GameObject voltar, reiniciar, derrota, vitoria, inimigo;
     public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida;
@@ -43,6 +45,7 @@ public class moveplayer : MonoBehaviour
         vidaTela.text = vida.ToString();
         dindin.text = "dindin\n" + dinheiroC; 
         inicio = this.transform.position;
+        inimigo = GameObject.FindGameObjectWithTag("inimigo");
     }
     // Update is called once per frame
     void Update()
@@ -75,13 +78,19 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        Debug.Log(distancia.value);
         if (distancia.value == 200)
         {
             velocidade += 500;
+            Esperar(2);
         }
-        if (distancia.value == 400)
+        else if (distancia.value == 400)
         {
             velocidade += 500;
+        }
+        if (this.transform.position.z >= inimigo.transform.position.z)
+        {
+            velocidade = 500;
         }
     }
     private void TouchStarted(InputAction.CallbackContext context)
@@ -142,5 +151,9 @@ public class moveplayer : MonoBehaviour
             poder.value += 1;
             Destroy(other.gameObject);
         }
+    }
+    System.Collections.IEnumerator Esperar(int x)
+    {
+        yield return new WaitForSeconds(1);
     }
 }
