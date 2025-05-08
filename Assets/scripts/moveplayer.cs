@@ -18,7 +18,7 @@ public class moveplayer : MonoBehaviour
     private Vector2 startouchPosition;
     private Vector2 endTouchPosition;
     private bool isSwiping;
-    public  TextMeshProUGUI vidaTela;
+    public  TextMeshProUGUI vidaTela, dindin;
     Vector3 inicio;
     private void Awake()
     {
@@ -41,6 +41,7 @@ public class moveplayer : MonoBehaviour
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         vidaTela.text = vida.ToString();
+        dindin.text = "dindin\n" + dinheiroC; 
         inicio = this.transform.position;
     }
     // Update is called once per frame
@@ -72,6 +73,17 @@ public class moveplayer : MonoBehaviour
             Time.timeScale = 0;
         }
     }
+    private void FixedUpdate()
+    {
+        if (distancia.value == 200)
+        {
+            velocidade += 500;
+        }
+        if (distancia.value == 400)
+        {
+            velocidade += 500;
+        }
+    }
     private void TouchStarted(InputAction.CallbackContext context)
     {
         startouchPosition = touchPositionAction.ReadValue<Vector2>();
@@ -100,9 +112,10 @@ public class moveplayer : MonoBehaviour
             {
                 rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
             }
-            if (swipeDirection.normalized.y > 1)
+            if (swipeDirection.normalized.y <= -1)
             {
-                rb.AddForce(transform.up*20);
+                Debug.Log("olaaaa");
+                rb.AddForce(Vector3.left*30000000000000);
             }
         }
     }
@@ -118,13 +131,14 @@ public class moveplayer : MonoBehaviour
     {
         if (other.gameObject.tag == "moeda")
         {
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             dinheiroC += 1;
+            dindin.text = "dindin\n" + dinheiroC;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "energia")
         {
-            Debug.Log(other.gameObject.name);
+            //Debug.Log(other.gameObject.name);
             poder.value += 1;
             Destroy(other.gameObject);
         }

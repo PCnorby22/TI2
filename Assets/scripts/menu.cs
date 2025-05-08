@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SearchService;
@@ -13,7 +15,12 @@ public class menu : MonoBehaviour
     GameObject configuracao;
     [SerializeField]
     GameObject inicial, Pause, Despause;
+    public TextMeshProUGUI dinheiroP;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        dinheiroP.text = "dindin player:\n9999999999";
+    }
     public void play()
     {
         SceneManager.LoadScene("menu fase");
