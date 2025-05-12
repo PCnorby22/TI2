@@ -49,8 +49,12 @@ public class moveEnemy : MonoBehaviour
         }
     }
 
-    public void dano(int d)
+    public void Dano(int d)
     {
-        vida.value -= d;
+        vida.value -= 10;
+    }
+    public float Mostravida()
+    {
+        return vida.value;
     }
 }

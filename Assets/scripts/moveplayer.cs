@@ -60,7 +60,7 @@ public class moveplayer : MonoBehaviour
         }
         rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.timeScale);
         Debug.Log(1 * velocidade * Time.timeScale);
-        Vector3 dis = this.transform.position - inicio;
+        Vector3 dis = this.transform.position - inimigo.transform.position;
         distancia.value = ((int)dis.magnitude);
         if (vida <= 0)
         {
@@ -69,7 +69,7 @@ public class moveplayer : MonoBehaviour
             reiniciar.SetActive(true);
             Time.timeScale = 0;
         }
-        else if (dis.magnitude>=500f)
+        else if (inimigo.GetComponent<moveEnemy>().Mostravida()<=0f)
         {
             vitoria.SetActive(true);
             voltar.SetActive(true);
@@ -79,24 +79,26 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (distancia.value == 200)
+        if (((int)(this.transform.position - inicio).magnitude) == 200)
         {
             velocidade += 10;
             Esperar(2);
         }
-        else if (distancia.value == 400)
+        else if (((int)(this.transform.position - inicio).magnitude) == 400)
         {
             velocidade += 10;
+            Esperar(2);
         }
         if (this.transform.position.z >= (inimigo.transform.position.z-10))
         {
             velocidade = 10;
+            inimigo.GetComponent<moveEnemy>().Dano(2);
+            Debug.Log("danoooo");
         }
         else if (inimigo.transform.position.z - this.transform.position.z >= 51)
         {
             velocidade = 30;
         }
-        Debug.Log(inimigo.transform.position.z - this.transform.position.z >= 51);
     }
     private void TouchStarted(InputAction.CallbackContext context)
     {
@@ -139,10 +141,6 @@ public class moveplayer : MonoBehaviour
         {
             vida--;
             vidaTela.text = vida.ToString();
-        }
-        else if(collision.gameObject.tag == "inimigo")
-        {
-            inimigo.GetComponent<moveEnemy>().dano(2);
         }
     }
     private void OnTriggerEnter(Collider other)
