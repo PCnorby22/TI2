@@ -51,7 +51,7 @@ public class moveEnemy : MonoBehaviour
 
     public void Dano(int d)
     {
-        vida.value -= 10;
+        vida.value -= d;
     }
     public float Mostravida()
     {

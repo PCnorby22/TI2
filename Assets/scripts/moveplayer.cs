@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class moveplayer : MonoBehaviour
 {
+    public AudioClip[] clips;
     public GameObject voltar, reiniciar, derrota, vitoria, inimigo;
     public Slider distancia, poder;
     Rigidbody rb;
@@ -82,18 +83,17 @@ public class moveplayer : MonoBehaviour
         if (((int)(this.transform.position - inicio).magnitude) == 200)
         {
             velocidade += 10;
-            Esperar(2);
         }
         else if (((int)(this.transform.position - inicio).magnitude) == 400)
         {
             velocidade += 10;
-            Esperar(2);
         }
         if (this.transform.position.z >= (inimigo.transform.position.z-10))
         {
             velocidade = 10;
             inimigo.GetComponent<moveEnemy>().Dano(2);
-            Debug.Log("danoooo");
+            inimigo.GetComponent<AudioSource>().clip = clips[2];
+            inimigo.GetComponent<AudioSource>().Play();
         }
         else if (inimigo.transform.position.z - this.transform.position.z >= 51)
         {
@@ -150,17 +150,19 @@ public class moveplayer : MonoBehaviour
             //Debug.Log(other.gameObject.name);
             dinheiroC += 1;
             dindin.text = "dindin\n" + dinheiroC;
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            other.gameObject.GetComponent<AudioSource>().clip = clips[0];
+            other.gameObject.GetComponent<AudioSource>().Play();
+            Destroy(other.gameObject,1);
         }
         else if (other.gameObject.tag == "energia")
         {
             //Debug.Log(other.gameObject.name);
             poder.value += 1;
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            other.gameObject.GetComponent<AudioSource>().clip = clips[1];
+            other.gameObject.GetComponent<AudioSource>().Play();
+            Destroy(other.gameObject,1);
         }
-    }
-    System.Collections.IEnumerator Esperar(int x)
-    {
-        yield return new WaitForSeconds(1);
     }
 }

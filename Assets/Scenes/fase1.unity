@@ -1687,6 +1687,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daabcd63f152d0489e9131ef7f7c24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: c021143550d3a8e4290a250687776de3, type: 3}
+  - {fileID: 8300000, guid: 602c47de6b30e9042baa9e8916454d1f, type: 3}
+  - {fileID: 8300000, guid: 4e5ad7cd28006634ca436524765edfbd, type: 3}
   voltar: {fileID: 216555910}
   reiniciar: {fileID: 1024912471}
   derrota: {fileID: 364637817}
