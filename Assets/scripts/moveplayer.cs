@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
+using System.Collections;
 
 public class moveplayer : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class moveplayer : MonoBehaviour
     public GameObject voltar, reiniciar, derrota, vitoria, inimigo;
     public Slider distancia, poder;
     Rigidbody rb;
-    public int velocidade, vida;
+    public int velocidade, vida, proxdistancia=300, T=0;
     int dinheiroC=0;
     private PlayerInput playerInput;
     private InputAction touchPositionAction;
@@ -23,6 +24,7 @@ public class moveplayer : MonoBehaviour
     private bool isSwiping;
     public  TextMeshProUGUI vidaTela, dindin;
     Vector3 inicio;
+    bool deudano = false;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -80,24 +82,28 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (((int)(this.transform.position - inicio).magnitude) == 200)
+        //Debug.Log(((int)(this.transform.position - inicio).magnitude));
+        //if (((int)(this.transform.position - inicio).magnitude) == proxdistancia)
+        T++;
+        if(T == 200)
         {
             velocidade += 10;
+            Debug.Log("1");
+            //proxdistancia += 300;
+            T = 0;
         }
-        else if (((int)(this.transform.position - inicio).magnitude) == 400)
-        {
-            velocidade += 10;
-        }
-        if (this.transform.position.z >= (inimigo.transform.position.z-10))
+        else if (this.transform.position.z >= (inimigo.transform.position.z-10) && deudano)
         {
             velocidade = 10;
             inimigo.GetComponent<moveEnemy>().Dano(2);
             inimigo.GetComponent<AudioSource>().clip = clips[2];
             inimigo.GetComponent<AudioSource>().Play();
+            deudano = false;
         }
         else if (inimigo.transform.position.z - this.transform.position.z >= 51)
         {
             velocidade = 30;
+            deudano = true;
         }
     }
     private void TouchStarted(InputAction.CallbackContext context)
@@ -127,11 +133,6 @@ public class moveplayer : MonoBehaviour
             else if (swipeDirection.normalized.x < 0 && this.transform.position.x < 15)
             {
                 rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
-            }
-            if (swipeDirection.normalized.y <= -1)
-            {
-                Debug.Log("olaaaa");
-                rb.AddForce(Vector3.left*30000000000000);
             }
         }
     }
@@ -164,5 +165,11 @@ public class moveplayer : MonoBehaviour
             other.gameObject.GetComponent<AudioSource>().Play();
             Destroy(other.gameObject,1);
         }
+    }
+    IEnumerator EsperarDoisSegundos()
+    {
+        Debug.Log("Esperando...");
+        yield return new WaitForSecondsRealtime(10f);
+        Debug.Log("2 segundos se passaram!");
     }
 }
