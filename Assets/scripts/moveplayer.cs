@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class moveplayer : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class moveplayer : MonoBehaviour
     private bool isSwiping;
     public  TextMeshProUGUI vidaTela, dindin;
     Vector3 inicio;
-    bool deudano = false;
+    bool deudano = false,semdano=false;
     public menu menu;
     private void Awake()
     {
@@ -81,6 +82,23 @@ public class moveplayer : MonoBehaviour
             menu.Savedata(dinheiroC);
             Time.timeScale = 0;
         }
+            if (Input.touchCount > 0)
+            {
+                int touchLimit = Mathf.Min(Input.touchCount, 5);
+                for (int i = 0; i < touchLimit; i++)
+                {
+                    Touch touch = Input.touches[i];
+                    Debug.Log($"Toque {i + 1}: Posição = {touch.position}, Fase = {touch.phase}");
+                    if (i == 4)
+                    {
+                        semdano = true;
+                    }
+                    else if (i == 2)
+                    {
+                    SceneManager.LoadScene("inicio");
+                    }
+                }
+            }
     }
     private void FixedUpdate()
     {
@@ -139,8 +157,11 @@ public class moveplayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "obistaculo")
         {
-            vida--;
-            vidaTela.text = vida.ToString();
+            if (!semdano)
+            {
+                vida--;
+                vidaTela.text = vida.ToString();
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
