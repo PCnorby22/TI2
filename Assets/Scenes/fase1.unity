@@ -1130,9 +1130,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2118905435}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2118905434}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
       insertIndex: -1
@@ -1140,6 +1137,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2118905438}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2118905439}
   m_SourcePrefab: {fileID: 100100000, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
 --- !u!1 &705008926
 GameObject:
@@ -1673,7 +1673,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &1047644392
 MonoBehaviour:
@@ -1700,8 +1700,11 @@ MonoBehaviour:
   poder: {fileID: 1512533447}
   velocidade: 30
   vida: 5
+  proxdistancia: 300
+  T: 0
   vidaTela: {fileID: 705008928}
   dindin: {fileID: 202064203}
+  menu: {fileID: 1917620494}
 --- !u!114 &1047644394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,8 +1754,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2101848, y: 0.40368164, z: 0.57075197}
-  m_Center: {x: -0.035219613, y: 0.21097139, z: 0.15200119}
+  m_Size: {x: 0.2101848, y: 0.2924516, z: 0.57075197}
+  m_Center: {x: -0.035219613, y: 0.26658636, z: 0.15200119}
 --- !u!82 &1047644396
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4006,30 +4009,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
---- !u!64 &2118905435
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118905432}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7115917047045377859, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
 --- !u!114 &2118905436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4150,6 +4131,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &2118905439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118905432}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.6892488, z: 1}
+  m_Center: {x: 0, y: 0.96758175, z: 0}
 --- !u!1 &2124939796
 GameObject:
   m_ObjectHideFlags: 0

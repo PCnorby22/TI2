@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 
 #if UNITY_EDITOR
@@ -10,7 +11,11 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+[System.Serializable]
+class PlayerData
+{
+    public int dimdim;
+}
 public class menu : MonoBehaviour
 {
     [SerializeField]
@@ -20,12 +25,24 @@ public class menu : MonoBehaviour
     public TextMeshProUGUI dinheiroP;
     public AudioMixer mixer;
     public Slider musicSlider, effectsSlider, masterSlider;
-    // Start is called before the first frame update
+    int dimdimP;
     private void Awake()
     {
         if (SceneManager.GetActiveScene().name!="fase1"|| SceneManager.GetActiveScene().name != "menu fase") 
         {
             dinheiroP.text = "dindin player:\n9999999999";
+            string path = Application.persistentDataPath + "/playerdata.json";
+            if (File.Exists(path))
+            {
+                Debug.Log("ja existe");
+                loaddata();
+            }
+            else
+            {
+                Debug.Log("criar");
+                Savedata();
+               
+            }
         }
     }
     void Update()
@@ -97,5 +114,37 @@ public class menu : MonoBehaviour
         Pause.SetActive(true);
         configuracao.SetActive(false);
         Time.timeScale = 1.0f;
+    }
+    public void Savedata()
+    {
+        PlayerData data = new PlayerData
+        {
+            dimdim = dimdimP
+        };
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/playerdata.json",json);
+        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+    }
+    public void Savedata(int d)
+    {
+        PlayerData data = new PlayerData
+        {
+            dimdim = d
+        };
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
+        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+    }
+    public void loaddata()
+    {
+        string path = Application.persistentDataPath + "/playerdata.json";
+        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+            dimdimP = data.dimdim;
+            dinheiroP.text = "dindin player:\n" + dimdimP;
+        }
     }
 }

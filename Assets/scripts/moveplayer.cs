@@ -25,6 +25,7 @@ public class moveplayer : MonoBehaviour
     public  TextMeshProUGUI vidaTela, dindin;
     Vector3 inicio;
     bool deudano = false;
+    public menu menu;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -77,19 +78,17 @@ public class moveplayer : MonoBehaviour
             vitoria.SetActive(true);
             voltar.SetActive(true);
             reiniciar.SetActive(true);
+            menu.Savedata(dinheiroC);
             Time.timeScale = 0;
         }
     }
     private void FixedUpdate()
     {
-        //Debug.Log(((int)(this.transform.position - inicio).magnitude));
-        //if (((int)(this.transform.position - inicio).magnitude) == proxdistancia)
+        
         T++;
         if(T == 200)
         {
             velocidade += 10;
-            Debug.Log("1");
-            //proxdistancia += 300;
             T = 0;
         }
         else if (this.transform.position.z >= (inimigo.transform.position.z-10) && deudano)
@@ -165,11 +164,5 @@ public class moveplayer : MonoBehaviour
             other.gameObject.GetComponent<AudioSource>().Play();
             Destroy(other.gameObject,1);
         }
-    }
-    IEnumerator EsperarDoisSegundos()
-    {
-        Debug.Log("Esperando...");
-        yield return new WaitForSecondsRealtime(10f);
-        Debug.Log("2 segundos se passaram!");
     }
 }
