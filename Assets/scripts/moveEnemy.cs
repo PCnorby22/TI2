@@ -57,4 +57,8 @@ public class moveEnemy : MonoBehaviour
     {
         return vida.value;
     }
+    public void acelera(int a)
+    {
+        velocidade = a;
+    }
 }

@@ -12,11 +12,11 @@ using UnityEngine.SceneManagement;
 public class moveplayer : MonoBehaviour
 {
     public AudioClip[] clips;
-    public GameObject voltar, reiniciar, derrota, vitoria, inimigo;
+    public GameObject voltar, reiniciar, derrota, vitoria, inimigo,fundo;
     public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida, proxdistancia=300, T=0;
-    int dinheiroC=0;
+    int dinheiroC=0, acelera=0;
     private PlayerInput playerInput;
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
@@ -25,7 +25,7 @@ public class moveplayer : MonoBehaviour
     private bool isSwiping;
     public  TextMeshProUGUI vidaTela, dindin;
     Vector3 inicio;
-    bool deudano = false,semdano=false;
+    bool semdano=false, jasalvo=false, deudano=false;
     public menu menu;
     private void Awake()
     {
@@ -64,14 +64,19 @@ public class moveplayer : MonoBehaviour
             this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
         }
         rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.timeScale);
-        Debug.Log(1 * velocidade * Time.timeScale);
-        Vector3 dis = this.transform.position - inimigo.transform.position;
-        distancia.value = ((int)dis.magnitude);
+        Vector3 dis = inimigo.transform.position-this.transform.position;
+        distancia.value = ((int)dis.z);
+        if (distancia.value > distancia.maxValue)
+        {
+            distancia.value = distancia.maxValue;
+        }
+        Debug.Log((int)dis.z);
         if (vida <= 0)
         {
             derrota.SetActive(true);
             voltar.SetActive(true);
             reiniciar.SetActive(true);
+            fundo.SetActive(true);
             Time.timeScale = 0;
         }
         else if (inimigo.GetComponent<moveEnemy>().Mostravida()<=0f)
@@ -79,7 +84,12 @@ public class moveplayer : MonoBehaviour
             vitoria.SetActive(true);
             voltar.SetActive(true);
             reiniciar.SetActive(true);
-            menu.Savedata(dinheiroC);
+            fundo.SetActive(true);
+            if (!jasalvo)
+            {
+                menu.Savedata(dinheiroC);
+                jasalvo =true;
+            }
             Time.timeScale = 0;
         }
             if (Input.touchCount > 0)
@@ -104,23 +114,26 @@ public class moveplayer : MonoBehaviour
     {
         
         T++;
-        if(T == 200)
+        if (this.transform.position.z >= inimigo.transform.position.z)
+        {
+            T = 0;
+            velocidade = 10 + acelera;
+            deudano = true;
+            Debug.Log("errou");
+        }
+        else if (T == 500)
         {
             velocidade += 10;
             T = 0;
         }
-        else if (this.transform.position.z >= (inimigo.transform.position.z-10) && deudano)
+        else if ((inimigo.transform.position- this.transform.position).magnitude>=distancia.maxValue && deudano)
         {
-            velocidade = 10;
-            inimigo.GetComponent<moveEnemy>().Dano(2);
-            inimigo.GetComponent<AudioSource>().clip = clips[2];
-            inimigo.GetComponent<AudioSource>().Play();
+            T = 0;
             deudano = false;
-        }
-        else if (inimigo.transform.position.z - this.transform.position.z >= 51)
-        {
-            velocidade = 30;
-            deudano = true;
+            Debug.Log("voltaaaaaaaaaaaaaaaaaaaaa");
+            acelera += 5;
+            velocidade = 30 + acelera;
+            inimigo.GetComponent<moveEnemy>().acelera(velocidade);
         }
     }
     private void TouchStarted(InputAction.CallbackContext context)
@@ -162,6 +175,16 @@ public class moveplayer : MonoBehaviour
                 vida--;
                 vidaTela.text = vida.ToString();
             }
+        }
+        if (collision.gameObject.tag == "inimigo")
+        {
+            velocidade = 10+acelera;
+            inimigo.GetComponent<moveEnemy>().Dano(2);
+            inimigo.GetComponent<AudioSource>().clip = clips[2];
+            inimigo.GetComponent<AudioSource>().Play();
+            acelera += 5;
+            deudano = true;
+            Debug.Log("dano");
         }
     }
     private void OnTriggerEnter(Collider other)

@@ -21,7 +21,7 @@ public class menu : MonoBehaviour
     [SerializeField]
     GameObject configuracao;
     [SerializeField]
-    GameObject inicial, Pause, Despause;
+    GameObject inicial, Pause, Despause, fundo;
     public TextMeshProUGUI dinheiroP;
     public AudioMixer mixer;
     public Slider musicSlider, effectsSlider, masterSlider;
@@ -105,6 +105,7 @@ public class menu : MonoBehaviour
         Despause.SetActive(true);
         inicial.SetActive(true);
         configuracao.SetActive(true);
+        fundo.SetActive(true);
         Time.timeScale = 0.0f;
     }
     public void depause()
@@ -113,6 +114,7 @@ public class menu : MonoBehaviour
         inicial.SetActive(false);
         Pause.SetActive(true);
         configuracao.SetActive(false);
+        fundo.SetActive(false);
         Time.timeScale = 1.0f;
     }
     public void Savedata()
@@ -127,9 +129,10 @@ public class menu : MonoBehaviour
     }
     public void Savedata(int d)
     {
+        loaddata();
         PlayerData data = new PlayerData
         {
-            dimdim = d
+            dimdim = d+dimdimP
         };
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
