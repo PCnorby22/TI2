@@ -17,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/menu loja.unity
     guid: 3b1f60e50cd3cf848be9246450cb03a4
+  - enabled: 1
+    path: Assets/Scenes/fase2.unity
+    guid: 065f8483de54e124fba8c1992f225294
+  - enabled: 1
+    path: Assets/Scenes/fase3.unity
+    guid: a58bd9d38cc50ee469f5a7ebae97e729
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

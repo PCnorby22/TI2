@@ -64,11 +64,11 @@ public class menu : MonoBehaviour
     }
     public void Fase2()
     {
-        SceneManager.LoadScene("menu fase");
+        SceneManager.LoadScene("fase2");
     }
     public void Fase3()
     {
-        SceneManager.LoadScene("menu fase");
+        SceneManager.LoadScene("fase3");
     }
     public void loja()
     {

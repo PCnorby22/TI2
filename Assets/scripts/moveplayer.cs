@@ -105,7 +105,18 @@ public class moveplayer : MonoBehaviour
                     }
                     else if (i == 2)
                     {
-                    SceneManager.LoadScene("inicio");
+                    if (SceneManager.GetActiveScene().name == "fase1")
+                    {
+                        SceneManager.LoadScene("fase2");
+                    }
+                    else if (SceneManager.GetActiveScene().name == "fase2")
+                    {
+                        SceneManager.LoadScene("fase3");
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("inicio");
+                    }
                     }
                 }
             }
@@ -135,6 +146,7 @@ public class moveplayer : MonoBehaviour
             velocidade = 30 + acelera;
             inimigo.GetComponent<moveEnemy>().acelera(velocidade);
         }
+        
     }
     private void TouchStarted(InputAction.CallbackContext context)
     {
@@ -175,6 +187,7 @@ public class moveplayer : MonoBehaviour
                 vida--;
                 vidaTela.text = vida.ToString();
             }
+            //this.GetComponent<Collider>().isTrigger = true;
         }
         if (collision.gameObject.tag == "inimigo")
         {
@@ -185,6 +198,20 @@ public class moveplayer : MonoBehaviour
             acelera += 5;
             deudano = true;
             Debug.Log("dano");
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "obistaculo")
+        {
+            //this.GetComponent<Collider>().isTrigger = true;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "obistaculo")
+        {
+            //this.GetComponent<Collider>().isTrigger = false;
         }
     }
     private void OnTriggerEnter(Collider other)
