@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class criaitem : MonoBehaviour
 {
@@ -6,27 +7,31 @@ public class criaitem : MonoBehaviour
     public selecionalinha selecionalinha;
     private void Awake()
     {
-        int i = selecionalinha.intem();
-        int l = selecionalinha.linha();
-        if (l == 0)
+        if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
-            if (this.transform.position.x <= -14) {
-                Instantiate(item[i], this.transform.position, this.transform.rotation);
-            }
-        }
-        else if (l == 1)
-        {
-            if (this.transform.position.x == 0)
+            int i = selecionalinha.intem();
+            int l = selecionalinha.linha();
+            if (l == 0)
             {
-                Instantiate(item[i], this.transform.position, this.transform.rotation);
+                if (this.transform.position.x <= -14)
+                {
+                    Instantiate(item[i], this.transform.position, this.transform.rotation);
+                }
             }
-        }
-        else
-        {
-            if (this.transform.position.x >= 14)
+            else if (l == 1)
             {
-                Instantiate(item[i], this.transform.position, this.transform.rotation);
+                if (this.transform.position.x == 0)
+                {
+                    Instantiate(item[i], this.transform.position, this.transform.rotation);
+                }
+            }
+            else
+            {
+                if (this.transform.position.x >= 14)
+                {
+                    Instantiate(item[i], this.transform.position, this.transform.rotation);
 
+                }
             }
         }
     }

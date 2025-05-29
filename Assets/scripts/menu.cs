@@ -16,6 +16,10 @@ class PlayerData
 {
     public int dimdim;
 }
+class Score
+{
+    public int[] pontuacao;
+}
 public class menu : MonoBehaviour
 {
     [SerializeField]
@@ -26,9 +30,10 @@ public class menu : MonoBehaviour
     public AudioMixer mixer;
     public Slider musicSlider, effectsSlider, masterSlider;
     int dimdimP;
+    int [] higscore;
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name!="fase1"|| SceneManager.GetActiveScene().name != "menu fase") 
+        if (SceneManager.GetActiveScene().name!="fase1"&& SceneManager.GetActiveScene().name != "menu fase"&& SceneManager.GetActiveScene().name != "faseinfinida") 
         {
             dinheiroP.text = "dindin player:\n9999999999";
             string path = Application.persistentDataPath + "/playerdata.json";
@@ -42,6 +47,21 @@ public class menu : MonoBehaviour
                 Debug.Log("criar");
                 Savedata();
                
+            }
+        }
+        else if(SceneManager.GetActiveScene().name == "faseinfinida")
+        {
+            string path = Application.persistentDataPath + "/Score.json";
+            if (File.Exists(path))
+            {
+                Debug.Log("ja existe");
+                loaddataScore();
+            }
+            else
+            {
+                Debug.Log("criar");
+                SavedataScore();
+
             }
         }
     }
@@ -148,6 +168,70 @@ public class menu : MonoBehaviour
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
             dimdimP = data.dimdim;
             dinheiroP.text = "dindin player:\n" + dimdimP;
+        }
+    }
+    public void SavedataScore()
+    {
+        Score data = new Score
+        {
+            pontuacao = new int[5]
+        };
+        higscore = new int[data.pontuacao.Length];
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/Score.json", json);
+        Debug.Log(Application.persistentDataPath + "/Score.json");
+        Debug.Log(higscore);
+    }
+    public void SavedataScore(int d)
+    {
+        loaddataScore();
+        higscore = LerloaddataScore();
+        Debug.Log(higscore);
+        for(int i=0; i < higscore.Length; i++)
+        {
+            if (higscore[i] < d)
+            {
+                higscore[i] = d;
+                Debug.Log(higscore[i]);
+                i = higscore.Length;
+            }
+        }
+        Score data = new Score
+        {
+            pontuacao = higscore
+        };
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/Score.json", json);
+        Debug.Log(Application.persistentDataPath + "/Score.json");
+    }
+    public void loaddataScore()
+    {
+        string path = Application.persistentDataPath + "/Score.json";
+        Debug.Log(Application.persistentDataPath + "/Score.json");
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Score data = JsonUtility.FromJson<Score>(json);
+            higscore = new int[data.pontuacao.Length];
+            higscore = data.pontuacao;
+        }
+        Debug.Log(higscore);
+    }
+    public int[] LerloaddataScore()
+    {
+        string path = Application.persistentDataPath + "/Score.json";
+        Debug.Log(Application.persistentDataPath + "/Score.json");
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Score data = JsonUtility.FromJson<Score>(json);
+            higscore = new int[data.pontuacao.Length];
+            Debug.Log(higscore);
+            return data.pontuacao;
+        }
+        else
+        {
+            return null;
         }
     }
 }

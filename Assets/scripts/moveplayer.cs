@@ -23,9 +23,9 @@ public class moveplayer : MonoBehaviour
     private Vector2 startouchPosition;
     private Vector2 endTouchPosition;
     private bool isSwiping;
-    public  TextMeshProUGUI vidaTela, dindin;
+    public  TextMeshProUGUI vidaTela, dindin, pontuacao;
     Vector3 inicio;
-    bool semdano=false, jasalvo=false, deudano=false;
+    bool semdano=false, jasalvo=false, deudano=false, jamostrou=false;
     public menu menu;
     private void Awake()
     {
@@ -48,9 +48,12 @@ public class moveplayer : MonoBehaviour
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         vidaTela.text = vida.ToString();
-        dindin.text = "dindin\n" + dinheiroC; 
         inicio = this.transform.position;
-        inimigo = GameObject.FindGameObjectWithTag("inimigo");
+        if (SceneManager.GetActiveScene().name != "faseinfinida")
+        {
+            dindin.text = "dindin\n" + dinheiroC;
+            inimigo = GameObject.FindGameObjectWithTag("inimigo");
+        }
     }
     // Update is called once per frame
     void Update()
@@ -66,45 +69,70 @@ public class moveplayer : MonoBehaviour
         rb.linearVelocity =new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1*velocidade*Time.timeScale);
         Vector3 dis = inimigo.transform.position-this.transform.position;
         distancia.value = ((int)dis.z);
-        if (distancia.value > distancia.maxValue)
+        if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
-            distancia.value = distancia.maxValue;
-        }
-        Debug.Log((int)dis.z);
-        if (vida <= 0)
-        {
-            derrota.SetActive(true);
-            voltar.SetActive(true);
-            reiniciar.SetActive(true);
-            fundo.SetActive(true);
-            Time.timeScale = 0;
-        }
-        else if (inimigo.GetComponent<moveEnemy>().Mostravida()<=0f)
-        {
-            vitoria.SetActive(true);
-            voltar.SetActive(true);
-            reiniciar.SetActive(true);
-            fundo.SetActive(true);
-            if (!jasalvo)
+            if (distancia.value > distancia.maxValue)
             {
-                menu.Savedata(dinheiroC);
-                jasalvo =true;
+                distancia.value = distancia.maxValue;
             }
-            Time.timeScale = 0;
+            Debug.Log((int)dis.z);
+            if (vida <= 0)
+            {
+                derrota.SetActive(true);
+                voltar.SetActive(true);
+                reiniciar.SetActive(true);
+                fundo.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else if (inimigo.GetComponent<moveEnemy>().Mostravida() <= 0f)
+            {
+                vitoria.SetActive(true);
+                voltar.SetActive(true);
+                reiniciar.SetActive(true);
+                fundo.SetActive(true);
+                if (!jasalvo)
+                {
+                    menu.Savedata(dinheiroC);
+                    jasalvo = true;
+                }
+                Time.timeScale = 0;
+            }
+        }
+        else
+        {
+            dindin.text = ((int)(inicio - this.transform.position).magnitude) + "M";
+            if (vida <= 0)
+            {
+                derrota.SetActive(true);
+                if (!jasalvo)
+                {
+                    menu.SavedataScore((int)(inicio - this.transform.position).magnitude);
+                    int[] higscore = menu.LerloaddataScore();
+                    for (int i = 0; i < higscore.Length; i++)
+                    {
+                        pontuacao.text += "Player" + i + " = " + higscore[i] + "\n";
+                    }
+                    jasalvo = true;
+                }
+                voltar.SetActive(true);
+                reiniciar.SetActive(true);
+                fundo.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
             if (Input.touchCount > 0)
+        {
+            int touchLimit = Mathf.Min(Input.touchCount, 5);
+            for (int i = 0; i < touchLimit; i++)
             {
-                int touchLimit = Mathf.Min(Input.touchCount, 5);
-                for (int i = 0; i < touchLimit; i++)
+                Touch touch = Input.touches[i];
+                Debug.Log($"Toque {i + 1}: Posição = {touch.position}, Fase = {touch.phase}");
+                if (i == 4)
                 {
-                    Touch touch = Input.touches[i];
-                    Debug.Log($"Toque {i + 1}: Posição = {touch.position}, Fase = {touch.phase}");
-                    if (i == 4)
-                    {
-                        semdano = true;
-                    }
-                    else if (i == 2)
-                    {
+                    semdano = true;
+                }
+                else if (i == 2)
+                {
                     if (SceneManager.GetActiveScene().name == "fase1")
                     {
                         SceneManager.LoadScene("fase2");
@@ -117,36 +145,46 @@ public class moveplayer : MonoBehaviour
                     {
                         SceneManager.LoadScene("inicio");
                     }
-                    }
                 }
             }
+        }
     }
     private void FixedUpdate()
     {
         
         T++;
-        if (this.transform.position.z >= inimigo.transform.position.z)
+        if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
-            T = 0;
-            velocidade = 10 + acelera;
-            deudano = true;
-            Debug.Log("errou");
+            if (this.transform.position.z >= inimigo.transform.position.z)
+            {
+                T = 0;
+                velocidade = 10 + acelera;
+                deudano = true;
+                Debug.Log("errou");
+            }
+            else if (T == 500)
+            {
+                velocidade += 10;
+                T = 0;
+            }
+            else if ((inimigo.transform.position - this.transform.position).magnitude >= distancia.maxValue && deudano)
+            {
+                T = 0;
+                deudano = false;
+                Debug.Log("voltaaaaaaaaaaaaaaaaaaaaa");
+                acelera += 5;
+                velocidade = 30 + acelera;
+                inimigo.GetComponent<moveEnemy>().acelera(velocidade);
+            }
         }
-        else if (T == 500)
+        else
         {
-            velocidade += 10;
-            T = 0;
+            if (T == 500)
+            {
+                velocidade += 10;
+                T = 0;
+            }
         }
-        else if ((inimigo.transform.position- this.transform.position).magnitude>=distancia.maxValue && deudano)
-        {
-            T = 0;
-            deudano = false;
-            Debug.Log("voltaaaaaaaaaaaaaaaaaaaaa");
-            acelera += 5;
-            velocidade = 30 + acelera;
-            inimigo.GetComponent<moveEnemy>().acelera(velocidade);
-        }
-        
     }
     private void TouchStarted(InputAction.CallbackContext context)
     {
