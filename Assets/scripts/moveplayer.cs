@@ -75,7 +75,7 @@ public class moveplayer : MonoBehaviour
             {
                 distancia.value = distancia.maxValue;
             }
-            Debug.Log((int)dis.z);
+            //Debug.Log((int)dis.z);
             if (vida <= 0)
             {
                 derrota.SetActive(true);
@@ -171,7 +171,7 @@ public class moveplayer : MonoBehaviour
             {
                 T = 0;
                 deudano = false;
-                Debug.Log("voltaaaaaaaaaaaaaaaaaaaaa");
+                //Debug.Log("voltaaaaaaaaaaaaaaaaaaaaa");
                 acelera += 5;
                 velocidade = 30 + acelera;
                 inimigo.GetComponent<moveEnemy>().acelera(velocidade);

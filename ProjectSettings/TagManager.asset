@@ -8,6 +8,7 @@ TagManager:
   - energia
   - moeda
   - inimigo
+  - predio
   layers:
   - Default
   - TransparentFX

@@ -7,10 +7,11 @@ public class criaitem : MonoBehaviour
     public selecionalinha selecionalinha;
     private void Awake()
     {
+        int l = selecionalinha.linha();
+        int i = selecionalinha.intem();
         if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
-            int i = selecionalinha.intem();
-            int l = selecionalinha.linha();
+            
             if (l == 0)
             {
                 if (this.transform.position.x <= -14)

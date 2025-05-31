@@ -12,10 +12,12 @@ public class selecionalinha : MonoBehaviour
     }
     public int linha()
     {
+        Debug.Log("linha: "+x);
         return this.x;
     }
     public int intem()
     {
+        Debug.Log("intem: "+i + this.gameObject.name);
         return this.i;
     }
 }
