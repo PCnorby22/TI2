@@ -3,6 +3,7 @@ using UnityEngine;
 public class destroicenario : MonoBehaviour
 {
     GameObject player;
+    public GameObject cenario;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -10,11 +11,11 @@ public class destroicenario : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
         if ((this.transform.position - player.GetComponent<Transform>().position).normalized.z < 0.0f)
         {
-            Destroy(this.gameObject,5);
+            Destroy(cenario, 2);
         }
     }
 }

@@ -202,7 +202,7 @@ public class moveplayer : MonoBehaviour
         Vector2 swipeDirection = startouchPosition - endTouchPosition;
         if(swipeDirection.magnitude > 50)
         {
-            Debug.Log("swipe detected: " + swipeDirection.normalized);
+           //Debug.Log("swipe detected: " + swipeDirection.normalized);
             Vector3 startWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(startouchPosition.x, startouchPosition.y, 10));
             Vector3 endWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endTouchPosition.x, endTouchPosition.y, 10));
             Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);

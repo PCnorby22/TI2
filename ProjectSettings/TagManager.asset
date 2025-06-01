@@ -9,6 +9,7 @@ TagManager:
   - moeda
   - inimigo
   - predio
+  - gerar
   layers:
   - Default
   - TransparentFX

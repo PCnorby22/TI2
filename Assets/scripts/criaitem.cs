@@ -4,14 +4,25 @@ using UnityEngine.SceneManagement;
 public class criaitem : MonoBehaviour
 {
     public GameObject[] item;
-    public selecionalinha selecionalinha;
-    private void Awake()
+    GameObject escolheLI;
+    int l = 0;
+    int i = 0;
+    bool escolhe = true;
+    private void Start()
     {
-        int l = selecionalinha.linha();
-        int i = selecionalinha.intem();
-        if (SceneManager.GetActiveScene().name != "faseinfinida")
+        escolheLI = GameObject.FindGameObjectWithTag("gerar");
+        if (escolhe)
         {
-            
+            l = escolheLI.GetComponent<linhaeintem>().linha();
+            i = escolheLI.GetComponent<linhaeintem>().item();
+            Debug.Log("pqmano pq" + l);
+        }
+    }
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name != "faseinfinida" && escolhe)
+        {
+            escolhe = false;
             if (l == 0)
             {
                 if (this.transform.position.x <= -14)
@@ -19,7 +30,7 @@ public class criaitem : MonoBehaviour
                     Instantiate(item[i], this.transform.position, this.transform.rotation);
                 }
             }
-            else if (l == 1)
+            else if (l == 2)
             {
                 if (this.transform.position.x == 0)
                 {
