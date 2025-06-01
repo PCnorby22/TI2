@@ -16,7 +16,7 @@ public class moveplayer : MonoBehaviour
     public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida, proxdistancia=300, T=0;
-    int dinheiroC=0, acelera=0;
+    int dinheiroC=0, acelera=0, dano=2;
     private PlayerInput playerInput;
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
@@ -27,6 +27,13 @@ public class moveplayer : MonoBehaviour
     Vector3 inicio;
     bool semdano=false, jasalvo=false, deudano=false, jamostrou=false;
     public menu menu;
+    public float slowTimeScale = 0.2f;
+    public float duration = 5f;         
+    private bool isActive = false, isActionD = false, isActionT = false, isActionB = false, isActionA = false;
+    private float timer = 0f;
+    public float doubleTapMaxDelay = 0.4f;
+    private float lastTapTime = 0f;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -96,6 +103,52 @@ public class moveplayer : MonoBehaviour
                     jasalvo = true;
                 }
                 Time.timeScale = 0;
+            }
+            if (poder.value >= poder.maxValue)
+            {
+                if (Input.touchCount == 1 && Input.GetTouch(0).phase == UnityEngine.TouchPhase.Ended)
+                {
+                    float timeSinceLastTap = Time.unscaledTime - lastTapTime;
+
+                    if (timeSinceLastTap <= doubleTapMaxDelay)
+                    {
+                        if (isActionT)
+                        {
+                            ActivateTimeDelay();
+                        }
+                        else if (isActionD)
+                        {
+                            Dobrodedano();
+                        }
+                        else if (isActionB)
+                        {
+
+                        }
+                        else if (isActionA)
+                        {
+
+                        }
+                            lastTapTime = 0f; // Reset para evitar múltiplas ativações
+                    }
+                    else
+                    {
+                        lastTapTime = Time.unscaledTime;
+                    }
+                }
+                if (isActive)
+                {
+                    timer += Time.unscaledDeltaTime;
+
+                    if (timer >= duration)
+                    {
+                        Time.timeScale = 1f;
+                        Time.fixedDeltaTime = 0.02f;
+                        isActive = false;
+                        timer = 0f;
+                        poder.value = 0;
+                        dano = 2;
+                    }
+                }
             }
         }
         else
@@ -216,6 +269,38 @@ public class moveplayer : MonoBehaviour
             }
         }
     }
+    public void ActivateTimeDelay()
+    {
+        if (isActive) return;
+
+        Time.timeScale = slowTimeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;  // Importante ajustar para física
+        isActive = true;
+        timer = 0f;
+    }
+
+    public void Dobrodedano()
+    {
+        if (isActive) return;
+        dano *= 2;
+        isActive = true;
+    }
+    public void Blink()
+    {
+        if (isActive) return;
+        this.transform.position = new Vector3(this.transform.position.x+10f, this.transform.position.y);
+        isActive = true;
+        timer = duration;
+    }
+    public void Atackimediato()
+    {
+        if (isActive) return;
+        inimigo.GetComponent<moveEnemy>().Dano(dano/2);
+        inimigo.GetComponent<AudioSource>().clip = clips[2];
+        inimigo.GetComponent<AudioSource>().Play();
+        isActive = true;
+        timer = duration;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "obistaculo")
@@ -267,7 +352,10 @@ public class moveplayer : MonoBehaviour
         else if (other.gameObject.tag == "energia")
         {
             //Debug.Log(other.gameObject.name);
-            poder.value += 1;
+            if (poder.value <= poder.maxValue)
+            {
+                poder.value += 1;
+            }
             other.gameObject.GetComponent<MeshRenderer>().enabled = false;
             other.gameObject.GetComponent<AudioSource>().clip = clips[1];
             other.gameObject.GetComponent<AudioSource>().Play();

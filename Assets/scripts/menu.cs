@@ -15,6 +15,7 @@ using UnityEngine.UI;
 class PlayerData
 {
     public int dimdim;
+    public bool ativoT, conpradoT, ativoD, conpradoD, ativoB, conpradoB, ativoA, conpradoA;
 }
 class Score
 {
@@ -31,11 +32,13 @@ public class menu : MonoBehaviour
     public Slider musicSlider, effectsSlider, masterSlider;
     int dimdimP;
     int [] higscore;
+    PlayerData Player;
+    public Toggle[] poderesC = new Toggle[4], poderesA = new Toggle[4]; 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name!="fase1"&& SceneManager.GetActiveScene().name != "menu fase"&& SceneManager.GetActiveScene().name != "faseinfinida") 
+        if (SceneManager.GetActiveScene().name== "inicio"|| SceneManager.GetActiveScene().name == "menu loja") 
         {
-            dinheiroP.text = "dindin player:\n9999999999";
+            dinheiroP.text = "dindin player:\n0000000";
             string path = Application.persistentDataPath + "/playerdata.json";
             if (File.Exists(path))
             {
@@ -48,6 +51,18 @@ public class menu : MonoBehaviour
                 Savedata();
                
             }
+            if(SceneManager.GetActiveScene().name == "menu loja")
+            {
+                poderesC[0].isOn = Player.conpradoT;
+                poderesC[1].isOn = Player.conpradoD;
+                poderesC[2].isOn = Player.conpradoB;
+                poderesC[3].isOn = Player.conpradoA;
+                for (int i = 0; i < poderesC.Length; i++)
+                {
+                    poderesA[i].isOn = false;
+                    poderesA[i].gameObject.SetActive(poderesC[i].isOn);
+                }
+            }  
         }
         else if(SceneManager.GetActiveScene().name == "faseinfinida")
         {
@@ -137,15 +152,74 @@ public class menu : MonoBehaviour
         fundo.SetActive(false);
         Time.timeScale = 1.0f;
     }
+    public void usarT()
+    {
+        loaddata();
+        Player.ativoT = poderesA[0].isOn;
+        classinteira();
+    }
+    public void usarD()
+    {
+        loaddata();
+        Player.ativoT = poderesA[1].isOn;
+        classinteira();
+    }
+    public void usarB()
+    {
+        loaddata();
+        Player.ativoB = poderesA[2].isOn;
+        classinteira();
+    }
+    public void usarA()
+    {
+        loaddata();
+        Player.ativoA = poderesA[3].isOn;
+        classinteira();
+    }
+    public void ComprerT()
+    {
+        loaddata();
+        if (dimdimP >= 200)
+        {
+            Player.conpradoT = true;
+            poderesA[0].gameObject.SetActive(true);
+            Player.dimdim = dimdimP - 200;
+            classinteira();
+        }
+    }
+    public void ComprarD()
+    {
+        loaddata();
+        Player.ativoT = poderesA[1];
+    }
+    public void ComprarB()
+    {
+        loaddata();
+        Player.ativoB = poderesA[2];
+    }
+    public void ComprarA()
+    {
+        loaddata();
+        Player.ativoA = poderesA[3];
+    }
     public void Savedata()
     {
         PlayerData data = new PlayerData
         {
-            dimdim = dimdimP
+            dimdim = dimdimP, ativoA=false, ativoB = false, ativoD= false, ativoT=false, conpradoA = false, conpradoB = false, conpradoD = false, conpradoT = false 
         };
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json",json);
         Debug.Log(Application.persistentDataPath + "/playerdata.json");
+    }
+    public void classinteira()
+    {
+        PlayerData data = new PlayerData();
+        data = Player;
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
+        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+        Debug.Log(data.conpradoT + "  " + data.ativoT);
     }
     public void Savedata(int d)
     {
@@ -168,6 +242,7 @@ public class menu : MonoBehaviour
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
             dimdimP = data.dimdim;
             dinheiroP.text = "dindin player:\n" + dimdimP;
+            Player = data;
         }
     }
     public void SavedataScore()
