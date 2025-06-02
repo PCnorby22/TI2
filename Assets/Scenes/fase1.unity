@@ -2104,6 +2104,9 @@ MonoBehaviour:
   dindin: {fileID: 202064203}
   pontuacao: {fileID: 0}
   menu: {fileID: 1917620494}
+  slowTimeScale: 0.2
+  duration: 5
+  doubleTapMaxDelay: 0.4
 --- !u!114 &1047644394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4033,6 +4036,16 @@ MonoBehaviour:
   musicSlider: {fileID: 0}
   effectsSlider: {fileID: 0}
   masterSlider: {fileID: 0}
+  poderesC:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  poderesA:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1917620495
 Transform:
   m_ObjectHideFlags: 0

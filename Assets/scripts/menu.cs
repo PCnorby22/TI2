@@ -12,7 +12,7 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 [System.Serializable]
-class PlayerData
+public class PlayerData
 {
     public int dimdim;
     public bool ativoT, conpradoT, ativoD, conpradoD, ativoB, conpradoB, ativoA, conpradoA;
@@ -156,24 +156,36 @@ public class menu : MonoBehaviour
     {
         loaddata();
         Player.ativoT = poderesA[0].isOn;
+        Player.ativoA = false;
+        Player.ativoB = false;
+        Player.ativoD = false;
         classinteira();
     }
     public void usarD()
     {
         loaddata();
-        Player.ativoT = poderesA[1].isOn;
+        Player.ativoD = poderesA[1].isOn;
+        Player.ativoT = false;
+        Player.ativoB = false;
+        Player.ativoA = false;
         classinteira();
     }
     public void usarB()
     {
         loaddata();
         Player.ativoB = poderesA[2].isOn;
+        Player.ativoA = false;
+        Player.ativoT = false;
+        Player.ativoD = false;
         classinteira();
     }
     public void usarA()
     {
         loaddata();
         Player.ativoA = poderesA[3].isOn;
+        Player.ativoT = false;
+        Player.ativoB = false;
+        Player.ativoD = false;
         classinteira();
     }
     public void ComprerT()
@@ -308,5 +320,10 @@ public class menu : MonoBehaviour
         {
             return null;
         }
+    }
+    public PlayerData MandaPLayer()
+    {
+        loaddata();
+        return Player;
     }
 }

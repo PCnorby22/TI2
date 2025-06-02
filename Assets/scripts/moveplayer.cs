@@ -39,6 +39,11 @@ public class moveplayer : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         touchPressAction = playerInput.actions["TouchPress"];
         touchPositionAction = playerInput.actions["TouchPosition"];
+        PlayerData ativar = menu.MandaPLayer();
+        isActionA = ativar.ativoA;
+        isActionT = ativar.ativoT;
+        isActionB = ativar.ativoB;
+        isActionD = ativar.ativoD;
     }
     private void OnEnable()
     {
