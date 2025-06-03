@@ -54,12 +54,18 @@ public class menu : MonoBehaviour
             if(SceneManager.GetActiveScene().name == "menu loja")
             {
                 poderesC[0].isOn = Player.conpradoT;
+                Debug.Log(poderesC[0].isOn + "   " + Player.conpradoT);
                 poderesC[1].isOn = Player.conpradoD;
                 poderesC[2].isOn = Player.conpradoB;
                 poderesC[3].isOn = Player.conpradoA;
+                poderesC[0].interactable = Player.conpradoT;
+                poderesC[1].interactable = Player.conpradoD;
+                poderesC[2].interactable = Player.conpradoB;
+                poderesC[3].interactable = Player.conpradoA;
                 for (int i = 0; i < poderesC.Length; i++)
                 {
                     poderesA[i].isOn = false;
+
                     poderesA[i].gameObject.SetActive(poderesC[i].isOn);
                 }
             }  
@@ -191,28 +197,78 @@ public class menu : MonoBehaviour
     public void ComprerT()
     {
         loaddata();
-        if (dimdimP >= 200)
+        if (dimdimP >= 200 && !Player.conpradoT)
         {
             Player.conpradoT = true;
             poderesA[0].gameObject.SetActive(true);
             Player.dimdim = dimdimP - 200;
             classinteira();
         }
+        else if (Player.conpradoT)
+        {
+            poderesC[0].isOn = true;
+        }
+        else
+        {
+            poderesC[0].isOn = false;
+        }
     }
     public void ComprarD()
     {
         loaddata();
-        Player.ativoT = poderesA[1];
+        if (dimdimP >= 200 && !Player.conpradoD)
+        {
+            Player.conpradoD = true;
+            poderesA[1].gameObject.SetActive(true);
+            Player.dimdim = dimdimP - 200;
+            classinteira();
+        }
+        else if (Player.conpradoD)
+        {
+            poderesC[1].isOn = true;
+        }
+        else
+        {
+            poderesC[1].isOn = false;
+        }
     }
     public void ComprarB()
     {
         loaddata();
-        Player.ativoB = poderesA[2];
+        if (dimdimP >= 200 && !Player.conpradoB)
+        {
+            Player.conpradoB = true;
+            poderesA[2].gameObject.SetActive(true);
+            Player.dimdim = dimdimP - 200;
+            classinteira();
+        }
+        else if (Player.conpradoB)
+        {
+            poderesC[2].isOn = true;
+        }
+        else
+        {
+            poderesC[2].isOn = false;
+        }
     }
     public void ComprarA()
     {
         loaddata();
-        Player.ativoA = poderesA[3];
+        if (dimdimP >= 200 && !Player.conpradoA)
+        {
+            Player.conpradoA = true;
+            poderesA[3].gameObject.SetActive(true);
+            Player.dimdim = dimdimP - 200;
+            classinteira();
+        }
+        else if (Player.conpradoA)
+        {
+            poderesC[3].isOn = true;
+        }
+        else
+        {
+            poderesC[3].isOn = false;
+        }
     }
     public void Savedata()
     {
@@ -236,10 +292,8 @@ public class menu : MonoBehaviour
     public void Savedata(int d)
     {
         loaddata();
-        PlayerData data = new PlayerData
-        {
-            dimdim = d+dimdimP
-        };
+        Player.dimdim += d;
+        PlayerData data = Player;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
         Debug.Log(Application.persistentDataPath + "/playerdata.json");

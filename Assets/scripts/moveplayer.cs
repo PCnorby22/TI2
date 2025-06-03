@@ -104,6 +104,7 @@ public class moveplayer : MonoBehaviour
                 fundo.SetActive(true);
                 if (!jasalvo)
                 {
+
                     menu.Savedata(dinheiroC);
                     jasalvo = true;
                 }
@@ -327,7 +328,16 @@ public class moveplayer : MonoBehaviour
             deudano = true;
             Debug.Log("dano");
         }
-    }
+        if (collision.gameObject.tag == "soco")
+        {;
+            vida--;
+            vidaTela.text = vida.ToString();
+            collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            collision.gameObject.GetComponent<AudioSource>().clip = clips[3];
+            collision.gameObject.GetComponent<AudioSource>().Play();
+            Destroy(collision.gameObject, 1);
+        }
+        }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "obistaculo")
