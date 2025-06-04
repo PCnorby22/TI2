@@ -58,10 +58,10 @@ public class menu : MonoBehaviour
                 poderesC[1].isOn = Player.conpradoD;
                 poderesC[2].isOn = Player.conpradoB;
                 poderesC[3].isOn = Player.conpradoA;
-                poderesC[0].interactable = Player.conpradoT;
-                poderesC[1].interactable = Player.conpradoD;
-                poderesC[2].interactable = Player.conpradoB;
-                poderesC[3].interactable = Player.conpradoA;
+                poderesC[0].interactable = !Player.conpradoT;
+                poderesC[1].interactable = !Player.conpradoD;
+                poderesC[2].interactable = !Player.conpradoB;
+                poderesC[3].interactable = !Player.conpradoA;
                 for (int i = 0; i < poderesC.Length; i++)
                 {
                     poderesA[i].isOn = false;

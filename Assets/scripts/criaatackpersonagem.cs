@@ -3,7 +3,7 @@ using UnityEngine;
 public class criaatackpersonagem : MonoBehaviour
 {
     int t = 0;
-    public GameObject soco;
+    public GameObject soco, fumaça;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +21,8 @@ public class criaatackpersonagem : MonoBehaviour
             {
                 Debug.Log(x)
 ;                Instantiate(soco, this.transform.position, this.transform.rotation);
+                Instantiate(fumaça,this.gameObject.transform);
+                
             }
             t = 0;
 
