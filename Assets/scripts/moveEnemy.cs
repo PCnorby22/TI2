@@ -13,7 +13,6 @@ public class moveEnemy : MonoBehaviour
     Rigidbody rb;
     public int velocidade;
     public Slider vida;
-    public GameObject sanguen;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,7 +52,6 @@ public class moveEnemy : MonoBehaviour
     public void Dano(int d)
     {
         vida.value -= d;
-        Instantiate(sanguen, this.gameObject.transform);
     }
     public float Mostravida()
     {
