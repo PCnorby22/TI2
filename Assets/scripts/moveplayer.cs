@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class moveplayer : MonoBehaviour
 {
     public AudioClip[] clips;
-    public GameObject voltar, reiniciar, derrota, vitoria, inimigo,fundo;
+    public GameObject voltar, reiniciar, derrota, vitoria, inimigo,fundo, shoque, efeitoblink;
     public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida, proxdistancia=300, T=0;
@@ -104,7 +104,6 @@ public class moveplayer : MonoBehaviour
                 fundo.SetActive(true);
                 if (!jasalvo)
                 {
-
                     menu.Savedata(dinheiroC);
                     jasalvo = true;
                 }
@@ -280,7 +279,7 @@ public class moveplayer : MonoBehaviour
         if (isActive) return;
 
         Time.timeScale = slowTimeScale;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;  // Importante ajustar para física
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
         isActive = true;
         timer = 0f;
     }
@@ -294,8 +293,9 @@ public class moveplayer : MonoBehaviour
     public void Blink()
     {
         if (isActive) return;
-        this.transform.position = new Vector3(this.transform.position.x+10f, this.transform.position.y);
+        this.transform.position = new Vector3(this.transform.position.x+20f, this.transform.position.y);
         isActive = true;
+        Instantiate(efeitoblink, this.gameObject.transform);
         timer = duration;
     }
     public void Atackimediato()
@@ -315,6 +315,7 @@ public class moveplayer : MonoBehaviour
             {
                 vida--;
                 vidaTela.text = vida.ToString();
+                Instantiate(shoque, this.gameObject.transform);
             }
             //this.GetComponent<Collider>().isTrigger = true;
         }
@@ -336,6 +337,7 @@ public class moveplayer : MonoBehaviour
             collision.gameObject.GetComponent<AudioSource>().clip = clips[3];
             collision.gameObject.GetComponent<AudioSource>().Play();
             Destroy(collision.gameObject, 1);
+            Instantiate(shoque, this.gameObject.transform);
         }
         }
     private void OnCollisionStay(Collision collision)

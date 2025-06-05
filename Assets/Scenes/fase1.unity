@@ -2193,6 +2193,7 @@ MonoBehaviour:
   vitoria: {fileID: 1251901763}
   inimigo: {fileID: 2118905432}
   fundo: {fileID: 1956317780}
+  shoque: {fileID: 7579079036720647730, guid: 9ade11c7a78745c4fa111404b8ba052f, type: 3}
   distancia: {fileID: 1966771562}
   poder: {fileID: 1512533447}
   velocidade: 30
@@ -4757,6 +4758,7 @@ MonoBehaviour:
     m_Bits: 0
   velocidade: 30
   vida: {fileID: 463522384}
+  sanguen: {fileID: 7579079036720647730, guid: 262614fce5b407349807d71ab7158bb1, type: 3}
 --- !u!4 &2118905437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0f868bd5b2027bc4485b4172facc256c, type: 3}
