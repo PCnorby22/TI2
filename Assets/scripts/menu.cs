@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
-
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SearchService;
@@ -16,6 +15,7 @@ public class PlayerData
 {
     public int dimdim;
     public bool ativoT, conpradoT, ativoD, conpradoD, ativoB, conpradoB, ativoA, conpradoA;
+    public bool[] conquistasA;
 }
 class Score
 {
@@ -33,7 +33,7 @@ public class menu : MonoBehaviour
     int dimdimP;
     int [] higscore;
     PlayerData Player;
-    public Toggle[] poderesC = new Toggle[4], poderesA = new Toggle[4]; 
+    public Toggle[] poderesC = new Toggle[4], poderesA = new Toggle[4], conquistas = new Toggle[6]; 
     private void Awake()
     {
         if (SceneManager.GetActiveScene().name== "inicio"|| SceneManager.GetActiveScene().name == "menu loja") 
@@ -68,7 +68,14 @@ public class menu : MonoBehaviour
 
                     poderesA[i].gameObject.SetActive(poderesC[i].isOn);
                 }
-            }  
+            }
+            else
+            {
+                for (int i = 0; i < poderesC.Length; i++)
+                {
+                    conquistas[i].isOn = Player.conquistasA[i];
+                }
+            }
         }
         else if(SceneManager.GetActiveScene().name == "faseinfinida")
         {
@@ -157,6 +164,10 @@ public class menu : MonoBehaviour
         configuracao.SetActive(false);
         fundo.SetActive(false);
         Time.timeScale = 1.0f;
+    }
+    public void EXIT()
+    {
+        Application.Quit();
     }
     public void usarT()
     {
@@ -274,7 +285,7 @@ public class menu : MonoBehaviour
     {
         PlayerData data = new PlayerData
         {
-            dimdim = dimdimP, ativoA=false, ativoB = false, ativoD= false, ativoT=false, conpradoA = false, conpradoB = false, conpradoD = false, conpradoT = false 
+            dimdim = dimdimP, ativoA=false, ativoB = false, ativoD= false, ativoT=false, conpradoA = false, conpradoB = false, conpradoD = false, conpradoT = false, conquistasA = new bool[6]
         };
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json",json);
@@ -283,6 +294,10 @@ public class menu : MonoBehaviour
     public void classinteira()
     {
         PlayerData data = new PlayerData();
+        if(Player.conpradoA && Player.conpradoB && Player.conpradoD && Player.conpradoT)
+        {
+            Player.conquistasA[4] = true;
+        }
         data = Player;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
@@ -293,6 +308,10 @@ public class menu : MonoBehaviour
     {
         loaddata();
         Player.dimdim += d;
+        if (Player.dimdim >= 1000)
+        {
+            Player.conquistasA[3] = true;
+        }
         PlayerData data = Player;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
@@ -379,5 +398,10 @@ public class menu : MonoBehaviour
     {
         loaddata();
         return Player;
+    }
+    public void recebePLayer(PlayerData P)
+    {
+        Player = P;
+        classinteira();
     }
 }

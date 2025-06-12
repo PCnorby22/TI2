@@ -14,7 +14,7 @@ public class criaatackpersonagem : MonoBehaviour
     void Update()
     {
         t += 1;
-        if (t >= 200)
+        if (t >= 200 && Time.timeScale>0)
         {
             float x = Random.Range(0, 1f);
             if (x > 0.7)
