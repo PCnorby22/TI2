@@ -775,6 +775,7 @@ MonoBehaviour:
   Despause: {fileID: 1320510818}
   fundo: {fileID: 0}
   dinheiroP: {fileID: 1421421361}
+  Nconquista: {fileID: 0}
   mixer: {fileID: 24100000, guid: c2a0199df02001a489dc2fd3baf7ae7f, type: 2}
   musicSlider: {fileID: 0}
   effectsSlider: {fileID: 0}
@@ -785,6 +786,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   poderesA:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  conquistas:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2173,7 +2181,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 596250905}
         m_TargetAssemblyTypeName: menu, Assembly-CSharp
-        m_MethodName: Fase1
+        m_MethodName: FaseInfinita
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

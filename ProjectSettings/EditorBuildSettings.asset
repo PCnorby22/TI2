@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/fase3.unity
     guid: a58bd9d38cc50ee469f5a7ebae97e729
+  - enabled: 1
+    path: Assets/Scenes/faseinfinida.unity
+    guid: be3a195504947be42838a73329b06ea6
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

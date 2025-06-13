@@ -177,7 +177,12 @@ public class moveplayer : MonoBehaviour
                 if (isActive)
                 {
                     timer += Time.unscaledDeltaTime;
-
+                    PlayerData conquista = menu.MandaPLayer();
+                    if (!conquista.conquistasA[5])
+                    {
+                        conquista.conquistasA[5] = true;
+                        menu.recebePLayer(conquista);
+                    }
                     if (timer >= duration)
                     {
                         Time.timeScale = 1f;
@@ -349,6 +354,13 @@ public class moveplayer : MonoBehaviour
                 GetComponent<AudioSource>().clip = clips[10];
                 GetComponent<AudioSource>().Play();
                 Instantiate(shoque, this.gameObject.transform);
+                PlayerData conquistas = menu.MandaPLayer();
+                conquistas.bater += 1;
+                if (conquistas.bater >= 20)
+                {
+                    conquistas.conquistasA[2] = true;
+                }
+                menu.recebePLayer(conquistas);
             }
             //this.GetComponent<Collider>().isTrigger = true;
         }

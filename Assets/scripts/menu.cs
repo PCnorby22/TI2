@@ -13,7 +13,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PlayerData
 {
-    public int dimdim;
+    public int dimdim, bater;
     public bool ativoT, conpradoT, ativoD, conpradoD, ativoB, conpradoB, ativoA, conpradoA;
     public bool[] conquistasA;
 }
@@ -27,7 +27,7 @@ public class menu : MonoBehaviour
     GameObject configuracao;
     [SerializeField]
     GameObject inicial, Pause, Despause, fundo;
-    public TextMeshProUGUI dinheiroP;
+    public TextMeshProUGUI dinheiroP, Nconquista;
     public AudioMixer mixer;
     public Slider musicSlider, effectsSlider, masterSlider;
     int dimdimP;
@@ -54,7 +54,6 @@ public class menu : MonoBehaviour
             if(SceneManager.GetActiveScene().name == "menu loja")
             {
                 poderesC[0].isOn = Player.conpradoT;
-                Debug.Log(poderesC[0].isOn + "   " + Player.conpradoT);
                 poderesC[1].isOn = Player.conpradoD;
                 poderesC[2].isOn = Player.conpradoB;
                 poderesC[3].isOn = Player.conpradoA;
@@ -71,10 +70,17 @@ public class menu : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < poderesC.Length; i++)
+                int x = 0;
+                for (int i = 0; i < conquistas.Length; i++)
                 {
                     conquistas[i].isOn = Player.conquistasA[i];
+                    Debug.Log(conquistas[i].isOn + "   " + Player.conquistasA[i]);
+                    if (conquistas[i].isOn)
+                    {
+                        x++;
+                    }
                 }
+                Nconquista.text = x.ToString();
             }
         }
         else if(SceneManager.GetActiveScene().name == "faseinfinida")
@@ -118,6 +124,10 @@ public class menu : MonoBehaviour
     {
         SceneManager.LoadScene("fase3");
     }
+    public void FaseInfinita()
+    {
+        SceneManager.LoadScene("faseinfinida");
+    }
     public void loja()
     {
         SceneManager.LoadScene("menu loja");
@@ -133,6 +143,7 @@ public class menu : MonoBehaviour
         {
             inicial.SetActive(true);
             configuracao.SetActive(false);
+            fundo.SetActive(false);
         }
         else
         {
@@ -281,11 +292,16 @@ public class menu : MonoBehaviour
             poderesC[3].isOn = false;
         }
     }
+    public void Abrirconquistas()
+    {
+        fundo.SetActive(true);
+        inicial.SetActive(false);
+    }
     public void Savedata()
     {
         PlayerData data = new PlayerData
         {
-            dimdim = dimdimP, ativoA=false, ativoB = false, ativoD= false, ativoT=false, conpradoA = false, conpradoB = false, conpradoD = false, conpradoT = false, conquistasA = new bool[6]
+            dimdim = dimdimP, ativoA=false, ativoB = false, ativoD= false, ativoT=false, conpradoA = false, conpradoB = false, conpradoD = false, conpradoT = false, conquistasA = new bool[6], bater=0
         };
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json",json);
@@ -298,11 +314,11 @@ public class menu : MonoBehaviour
         {
             Player.conquistasA[4] = true;
         }
+        Debug.Log(Player.conquistasA[4]);
         data = Player;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
         Debug.Log(Application.persistentDataPath + "/playerdata.json");
-        Debug.Log(data.conpradoT + "  " + data.ativoT);
     }
     public void Savedata(int d)
     {

@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &313846915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,7 +1261,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 579398681}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 596250905}
+        m_TargetAssemblyTypeName: menu, Assembly-CSharp
+        m_MethodName: Abrirconquistas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &579398681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,8 +1650,9 @@ MonoBehaviour:
   inicial: {fileID: 1320510818}
   Pause: {fileID: 1320510818}
   Despause: {fileID: 1320510818}
-  fundo: {fileID: 0}
+  fundo: {fileID: 313846914}
   dinheiroP: {fileID: 537978172}
+  Nconquista: {fileID: 2127366901}
   mixer: {fileID: 24100000, guid: c2a0199df02001a489dc2fd3baf7ae7f, type: 2}
   musicSlider: {fileID: 590507264}
   effectsSlider: {fileID: 1361475007}
@@ -1654,6 +1667,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  conquistas:
+  - {fileID: 1690547733}
+  - {fileID: 236179969}
+  - {fileID: 1647695846}
+  - {fileID: 62309720}
+  - {fileID: 1167119571}
+  - {fileID: 1755877011}
 --- !u!4 &596250906
 Transform:
   m_ObjectHideFlags: 0
@@ -3829,7 +3849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1320510819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5605,7 +5625,7 @@ GameObject:
   - component: {fileID: 1755877010}
   - component: {fileID: 1755877011}
   m_Layer: 5
-  m_Name: loja 100% (1)
+  m_Name: usou poder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5964,7 +5984,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: loja 100%
+  m_Text: Usou poder
 --- !u!222 &1854998771
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6634,10 +6654,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 579398679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -2.9000015, y: -0.000011444092}
+  m_SizeDelta: {x: 52.36, y: 69.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2127366901
 MonoBehaviour:
@@ -6659,7 +6679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6668,8 +6688,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294901981
+  m_fontColor: {r: 0.8658743, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6686,10 +6706,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 62
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
