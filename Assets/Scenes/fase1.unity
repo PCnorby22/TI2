@@ -1401,7 +1401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soco: {fileID: 6582095518417417205, guid: b0c3ad953f6baed439a66d25c2b7b493, type: 3}
-  "fuma\xE7a": {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
+  fumaca: {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
 --- !u!1001 &626593302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1819,7 +1819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soco: {fileID: 6582095518417417205, guid: b0c3ad953f6baed439a66d25c2b7b493, type: 3}
-  "fuma\xE7a": {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
+  fumaca: {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
 --- !u!1001 &899423312
 PrefabInstance:
   m_ObjectHideFlags: 0
