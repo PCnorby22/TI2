@@ -228,7 +228,6 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
         T++;
         if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
@@ -248,6 +247,7 @@ public class moveplayer : MonoBehaviour
             {
                 T = 0;
                 deudano = false;
+                //gameObject.GetComponent<Animator>().SetBool("dano", false);
                 //Debug.Log("voltaaaaaaaaaaaaaaaaaaaaa");
                 acelera += 5;
                 velocidade = 30 + acelera;
@@ -288,7 +288,7 @@ public class moveplayer : MonoBehaviour
         Vector2 swipeDirection = startouchPosition - endTouchPosition;
         if (swipeDirection.magnitude > 50)
         {
-            //Debug.Log("swipe detected: " + swipeDirection.normalized);
+            Debug.Log("swipe detected: " + swipeDirection.normalized);
             Vector3 startWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(startouchPosition.x, startouchPosition.y, 10));
             Vector3 endWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endTouchPosition.x, endTouchPosition.y, 10));
             Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);
@@ -301,6 +301,10 @@ public class moveplayer : MonoBehaviour
                 rb.MovePosition(this.transform.position + new Vector3(15, 0, 0));
             }
         }
+    }
+    public IEnumerable Esperar(int segundos)
+    {
+        yield return new WaitForSeconds(segundos);
     }
     public void ActivateTimeDelay()
     {
@@ -349,6 +353,7 @@ public class moveplayer : MonoBehaviour
         {
             if (!semdano)
             {
+                gameObject.GetComponent<Animator>().SetBool("bater", true);
                 vida--;
                 vidaTela.text = vida.ToString();
                 GetComponent<AudioSource>().clip = clips[10];
@@ -366,6 +371,8 @@ public class moveplayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "inimigo")
         {
+            gameObject.GetComponent<Animator>().SetBool("dano", true);
+            
             GetComponent<AudioSource>().clip = clips[11];
             GetComponent<AudioSource>().Play();
             velocidade = 10 + acelera;
@@ -378,7 +385,8 @@ public class moveplayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "soco")
         {
-            ;
+            gameObject.GetComponent<Animator>().SetBool("bateuOB", true);
+            
             vida--;
             vidaTela.text = vida.ToString();
             collision.gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -428,5 +436,10 @@ public class moveplayer : MonoBehaviour
             other.gameObject.GetComponent<AudioSource>().Play();
             Destroy(other.gameObject, 1);
         }
+    }
+    private void OnAnimatorMove()
+    {
+        gameObject.GetComponent<Animator>().SetBool("bateuOB", false);
+        gameObject.GetComponent<Animator>().SetBool("dano", false);
     }
 }
