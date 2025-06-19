@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 public class moveEnemy : MonoBehaviour
 {
@@ -32,19 +33,23 @@ public class moveEnemy : MonoBehaviour
             {
                 if (x==0) 
                 {
+                    gameObject.GetComponent<Animator>().SetBool("L", true);
                     transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
                 }
                 else
                 {
+                    gameObject.GetComponent<Animator>().SetBool("R", true);
                     transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
                 }
             }
             else if(transform.position.x == -15)
             {
+                gameObject.GetComponent<Animator>().SetBool("R", true);
                 transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
             }
             else
             {
+                gameObject.GetComponent<Animator>().SetBool("L", true);
                 transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
             }
         }
@@ -52,6 +57,7 @@ public class moveEnemy : MonoBehaviour
 
     public void Dano(int d)
     {
+        gameObject.GetComponent<Animator>().SetBool("danoR", true);
         vida.value -= d;
         Instantiate(sanguen, this.gameObject.transform);
     }
@@ -63,4 +69,11 @@ public class moveEnemy : MonoBehaviour
     {
         velocidade = a;
     }
+    private void OnAnimatorMove()
+    {
+        gameObject.GetComponent<Animator>().SetBool("danoR", false);
+        gameObject.GetComponent<Animator>().SetBool("L", false);
+        gameObject.GetComponent<Animator>().SetBool("R", false);
+    }
+
 }

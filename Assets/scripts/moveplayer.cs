@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class moveplayer : MonoBehaviour
 {
     public AudioClip[] clips;
-    public GameObject voltar, reiniciar, derrota, vitoria, inimigo, fundo, shoque, efeitoblink;
+    public GameObject voltar, reiniciar, derrota, vitoria, inimigo, fundo, shoque, efeitoblink, personagemderrota;
     public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida, proxdistancia = 300, T = 0;
@@ -95,6 +95,7 @@ public class moveplayer : MonoBehaviour
                 finalaudio.clip = clips[9];
                 finalaudio.gameObject.SetActive(true);
                 derrota.SetActive(true);
+                personagemderrota.SetActive(true);
                 voltar.SetActive(true);
                 reiniciar.SetActive(true);
                 fundo.SetActive(true);
@@ -353,7 +354,7 @@ public class moveplayer : MonoBehaviour
         {
             if (!semdano)
             {
-                gameObject.GetComponent<Animator>().SetBool("bater", true);
+                gameObject.GetComponent<Animator>().SetBool("bateuOB", true);
                 vida--;
                 vidaTela.text = vida.ToString();
                 GetComponent<AudioSource>().clip = clips[10];
