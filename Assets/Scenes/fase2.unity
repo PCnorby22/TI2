@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soco: {fileID: 6582095518417417205, guid: b0c3ad953f6baed439a66d25c2b7b493, type: 3}
-  "fuma\xE7a": {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
+  fumaca: {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
 --- !u!1001 &626593302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soco: {fileID: 6582095518417417205, guid: b0c3ad953f6baed439a66d25c2b7b493, type: 3}
-  "fuma\xE7a": {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
+  fumaca: {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
 --- !u!1001 &940684992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2332,6 +2332,7 @@ MonoBehaviour:
   fundo: {fileID: 1956317780}
   shoque: {fileID: 7579079036720647730, guid: 9ade11c7a78745c4fa111404b8ba052f, type: 3}
   efeitoblink: {fileID: 7579079036720647730, guid: 388b56486befe904d96846211fd7dec7, type: 3}
+  personagemderrota: {fileID: 0}
   distancia: {fileID: 1966771562}
   poder: {fileID: 1512533447}
   velocidade: 30
@@ -2345,6 +2346,7 @@ MonoBehaviour:
   slowTimeScale: 0.2
   duration: 5
   doubleTapMaxDelay: 0.4
+  TapMaxDelay: 0.7
   finalaudio: {fileID: 196974414}
 --- !u!114 &1047644394
 MonoBehaviour:
@@ -4271,6 +4273,7 @@ MonoBehaviour:
   Despause: {fileID: 1206026415}
   fundo: {fileID: 1956317780}
   dinheiroP: {fileID: 202064203}
+  Nconquista: {fileID: 0}
   mixer: {fileID: 24100000, guid: c2a0199df02001a489dc2fd3baf7ae7f, type: 2}
   musicSlider: {fileID: 0}
   effectsSlider: {fileID: 0}
@@ -4281,6 +4284,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   poderesA:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  conquistas:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
