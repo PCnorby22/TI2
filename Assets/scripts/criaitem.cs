@@ -15,7 +15,7 @@ public class criaitem : MonoBehaviour
         {
             l = escolheLI.GetComponent<linhaeintem>().linha();
             i = escolheLI.GetComponent<linhaeintem>().item();
-            Debug.Log("pqmano pq" + l);
+            //Debug.Log("pqmano pq" + l);
         }
     }
     private void Update()

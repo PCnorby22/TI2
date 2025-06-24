@@ -71,6 +71,7 @@ public class moveplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (this.transform.position.x < -15)
         {
             this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
@@ -148,7 +149,7 @@ public class moveplayer : MonoBehaviour
                 if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasReleasedThisFrame)
                 {
                     float timeSinceLastTap = Time.unscaledTime - lastTapTime;
-
+                    Debug.Log(lastTapTime);
                     if (timeSinceLastTap <= doubleTapMaxDelay)
                     {
                         if (isActionT)
@@ -177,8 +178,9 @@ public class moveplayer : MonoBehaviour
 
                 if (isActive)
                 {
-                    timer += Time.unscaledDeltaTime;
+                    timer += Time.deltaTime;
                     PlayerData conquista = menu.MandaPLayer();
+                    Debug.Log(timer);
                     if (!conquista.conquistasA[5])
                     {
                         conquista.conquistasA[5] = true;
@@ -186,6 +188,9 @@ public class moveplayer : MonoBehaviour
                     }
                     if (timer >= duration)
                     {
+                        Debug.Log("opa");
+                        Collider a = this.gameObject.GetComponent<Collider>();
+                        a.isTrigger = false;
                         Time.timeScale = 1f;
                         Time.fixedDeltaTime = 0.02f;
                         isActive = false;
@@ -229,6 +234,7 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        
         T++;
         if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
@@ -289,7 +295,7 @@ public class moveplayer : MonoBehaviour
         Vector2 swipeDirection = startouchPosition - endTouchPosition;
         if (swipeDirection.magnitude > 50)
         {
-            Debug.Log("swipe detected: " + swipeDirection.normalized);
+            //Debug.Log("swipe detected: " + swipeDirection.normalized);
             Vector3 startWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(startouchPosition.x, startouchPosition.y, 10));
             Vector3 endWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endTouchPosition.x, endTouchPosition.y, 10));
             Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);
@@ -335,7 +341,9 @@ public class moveplayer : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 20f);
         isActive = true;
         Instantiate(efeitoblink, this.gameObject.transform);
-        timer = duration;
+        Collider a = this.gameObject.GetComponent<Collider>();
+        a.isTrigger = true;
+        timer = 0;
     }
     public void Atackimediato()
     {
@@ -346,7 +354,7 @@ public class moveplayer : MonoBehaviour
         inimigo.GetComponent<AudioSource>().clip = clips[2];
         inimigo.GetComponent<AudioSource>().Play();
         isActive = true;
-        timer = duration;
+        timer = 0;
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -382,7 +390,7 @@ public class moveplayer : MonoBehaviour
             inimigo.GetComponent<AudioSource>().Play();
             acelera += 5;
             deudano = true;
-            Debug.Log("dano");
+            //Debug.Log("dano");
         }
         if (collision.gameObject.tag == "soco")
         {
@@ -436,6 +444,20 @@ public class moveplayer : MonoBehaviour
             other.gameObject.GetComponent<AudioSource>().clip = clips[1];
             other.gameObject.GetComponent<AudioSource>().Play();
             Destroy(other.gameObject, 1);
+        }
+        else if (other.gameObject.tag == "inimigo")
+        {
+            gameObject.GetComponent<Animator>().SetBool("dano", true);
+
+            GetComponent<AudioSource>().clip = clips[11];
+            GetComponent<AudioSource>().Play();
+            velocidade = 10 + acelera;
+            inimigo.GetComponent<moveEnemy>().Dano(dano);
+            inimigo.GetComponent<AudioSource>().clip = clips[2];
+            inimigo.GetComponent<AudioSource>().Play();
+            acelera += 5;
+            deudano = true;
+            //Debug.Log("dano");
         }
     }
     private void OnAnimatorMove()

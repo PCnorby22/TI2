@@ -1401,7 +1401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soco: {fileID: 6582095518417417205, guid: b0c3ad953f6baed439a66d25c2b7b493, type: 3}
-  fumaca: {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
+  fumaca: {fileID: 6896669442221058884, guid: 002bb35a185fd1e49a470fe467cea483, type: 3}
 --- !u!1 &705008926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soco: {fileID: 6582095518417417205, guid: b0c3ad953f6baed439a66d25c2b7b493, type: 3}
-  fumaca: {fileID: 7579079036720647730, guid: 919593b01486ae34793889144da0f47a, type: 3}
+  fumaca: {fileID: 6896669442221058884, guid: 002bb35a185fd1e49a470fe467cea483, type: 3}
 --- !u!1001 &899423312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2157,8 +2157,8 @@ MonoBehaviour:
   vitoria: {fileID: 1251901763}
   inimigo: {fileID: 1525553932}
   fundo: {fileID: 1956317780}
-  shoque: {fileID: 7579079036720647730, guid: 9ade11c7a78745c4fa111404b8ba052f, type: 3}
-  efeitoblink: {fileID: 7579079036720647730, guid: 388b56486befe904d96846211fd7dec7, type: 3}
+  shoque: {fileID: 8204978208793494684, guid: 00576be3eaa90b04583368ef69cfb510, type: 3}
+  efeitoblink: {fileID: 1410371954510104373, guid: 22a2f17c244f4e44d91d935585e8a27c, type: 3}
   personagemderrota: {fileID: 735706497}
   distancia: {fileID: 1966771562}
   poder: {fileID: 1512533447}

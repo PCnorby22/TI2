@@ -19,7 +19,6 @@ public class criaatackpersonagem : MonoBehaviour
             float x = Random.Range(0, 1f);
             if (x > 0.7)
             {
-                Debug.Log(x)
 ;                Instantiate(soco, this.transform.position, this.transform.rotation);
                 Instantiate(fumaca,this.gameObject.transform);
                 

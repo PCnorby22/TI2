@@ -314,11 +314,11 @@ public class menu : MonoBehaviour
         {
             Player.conquistasA[4] = true;
         }
-        Debug.Log(Player.conquistasA[4]);
+        //Debug.Log(Player.conquistasA[4]);
         data = Player;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
-        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+        //Debug.Log(Application.persistentDataPath + "/playerdata.json");
     }
     public void Savedata(int d)
     {
@@ -336,7 +336,7 @@ public class menu : MonoBehaviour
     public void loaddata()
     {
         string path = Application.persistentDataPath + "/playerdata.json";
-        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+        //Debug.Log(Application.persistentDataPath + "/playerdata.json");
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
