@@ -8,11 +8,12 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class moveplayer : MonoBehaviour
 {
     public AudioClip[] clips;
-    public GameObject voltar, reiniciar, derrota, vitoria, inimigo, fundo, shoque, efeitoblink, personagemderrota;
+    public GameObject voltar, reiniciar, derrota, vitoria, inimigo, fundo, shoque, efeitoblink, personagemderrota, efeitoraio;
     public Slider distancia, poder;
     Rigidbody rb;
     public int velocidade, vida, proxdistancia = 300, T = 0;
@@ -35,6 +36,7 @@ public class moveplayer : MonoBehaviour
     public float TapMaxDelay = 0.7f;
     private float lastTapTime = 0f;
     public AudioSource finalaudio;
+    public VisualEffect raioataque;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -80,6 +82,10 @@ public class moveplayer : MonoBehaviour
         {
             this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
         }
+        else if (this.transform.position.x < 14 && this.transform.position.x > -14 && this.transform.position.x !=0)
+        {
+            this.transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
+        }
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1 * velocidade * Time.timeScale);
         Vector3 dis = inimigo.transform.position - this.transform.position;
         distancia.value = ((int)dis.z);
@@ -93,6 +99,12 @@ public class moveplayer : MonoBehaviour
             if (vida <= 0)
             {
                 //finalaudio.ignoreListenerPause = true;
+                if (!jasalvo)
+                {
+                    
+                    menu.Savedata(dinheiroC);
+                    jasalvo = true;
+                }
                 finalaudio.clip = clips[9];
                 finalaudio.gameObject.SetActive(true);
                 derrota.SetActive(true);
@@ -149,7 +161,7 @@ public class moveplayer : MonoBehaviour
                 if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasReleasedThisFrame)
                 {
                     float timeSinceLastTap = Time.unscaledTime - lastTapTime;
-                    Debug.Log(lastTapTime);
+                    //Debug.Log(lastTapTime);
                     if (timeSinceLastTap <= doubleTapMaxDelay)
                     {
                         if (isActionT)
@@ -180,7 +192,7 @@ public class moveplayer : MonoBehaviour
                 {
                     timer += Time.deltaTime;
                     PlayerData conquista = menu.MandaPLayer();
-                    Debug.Log(timer);
+                    //Debug.Log(timer);
                     if (!conquista.conquistasA[5])
                     {
                         conquista.conquistasA[5] = true;
@@ -188,7 +200,7 @@ public class moveplayer : MonoBehaviour
                     }
                     if (timer >= duration)
                     {
-                        Debug.Log("opa");
+                        //Debug.Log("opa");
                         Collider a = this.gameObject.GetComponent<Collider>();
                         a.isTrigger = false;
                         Time.timeScale = 1f;
@@ -243,7 +255,7 @@ public class moveplayer : MonoBehaviour
                 T = 0;
                 velocidade = 10 + acelera;
                 deudano = true;
-                Debug.Log("errou");
+                //Debug.Log("errou");
             }
             else if (T == 500)
             {
@@ -298,7 +310,7 @@ public class moveplayer : MonoBehaviour
             //Debug.Log("swipe detected: " + swipeDirection.normalized);
             Vector3 startWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(startouchPosition.x, startouchPosition.y, 10));
             Vector3 endWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endTouchPosition.x, endTouchPosition.y, 10));
-            Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);
+            //Debug.DrawLine(startWorldPosition, endWorldPosition, Color.red, 2.0f);
             if (swipeDirection.normalized.x > 0 && this.transform.position.x > -15)
             {
                 rb.MovePosition(this.transform.position + new Vector3(-15, 0, 0));
@@ -348,6 +360,8 @@ public class moveplayer : MonoBehaviour
     public void Atackimediato()
     {
         if (isActive) return;
+        raioataque.SetVector3("fim", this.gameObject.transform.InverseTransformPoint(inimigo.transform.position));
+        Instantiate(efeitoraio, this.gameObject.transform);
         GetComponent<AudioSource>().clip = clips[7];
         GetComponent<AudioSource>().Play();
         inimigo.GetComponent<moveEnemy>().Dano(dano / 2);

@@ -8,6 +8,7 @@ using UnityEditor.SearchService;
 #endif
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 [System.Serializable]
@@ -42,12 +43,12 @@ public class menu : MonoBehaviour
             string path = Application.persistentDataPath + "/playerdata.json";
             if (File.Exists(path))
             {
-                Debug.Log("ja existe");
+                //Debug.Log("ja existe");
                 loaddata();
             }
             else
             {
-                Debug.Log("criar");
+                //Debug.Log("criar");
                 Savedata();
                
             }
@@ -74,7 +75,7 @@ public class menu : MonoBehaviour
                 for (int i = 0; i < conquistas.Length; i++)
                 {
                     conquistas[i].isOn = Player.conquistasA[i];
-                    Debug.Log(conquistas[i].isOn + "   " + Player.conquistasA[i]);
+                    //Debug.Log(conquistas[i].isOn + "   " + Player.conquistasA[i]);
                     if (conquistas[i].isOn)
                     {
                         x++;
@@ -106,7 +107,20 @@ public class menu : MonoBehaviour
             mixer.SetFloat("master", ((masterSlider.value / 100) * 85) - 80);
             mixer.SetFloat("efeitos", ((effectsSlider.value / 100) * 85) - 80);
             mixer.SetFloat("musica", ((musicSlider.value / 100) * 85) - 80);
+            int touchCount = GetActiveTouchCount();
+            if (touchCount == 4)
+            {
+                Savedata(100);
+            }
         }
+    }
+    int GetActiveTouchCount()
+    {
+        int count = 0;
+        foreach (var touch in Touchscreen.current.touches)
+            if (touch.press.isPressed)
+                count++;
+        return count;
     }
     public void play()
     {

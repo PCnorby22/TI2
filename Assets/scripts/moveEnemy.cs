@@ -22,6 +22,18 @@ public class moveEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.transform.position.x < -15)
+        {
+            this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+        }
+        else if (this.transform.position.x > 15)
+        {
+            this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+        }
+        else if (this.transform.position.x < 14 && this.transform.position.x > -14 && this.transform.position.x !=0)
+        {
+            this.transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
+        }
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1 * velocidade * Time.timeScale);
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -68,6 +80,37 @@ public class moveEnemy : MonoBehaviour
     public void acelera(int a)
     {
         velocidade = a;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "obistaculo")
+        {
+            int x = UnityEngine.Random.Range(0, 2);
+            //Debug.Log(hit.collider.gameObject.name);
+            if (transform.position.x == 0)
+            {
+                if (x == 0)
+                {
+                    gameObject.GetComponent<Animator>().SetBool("L", true);
+                    transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+                }
+                else
+                {
+                    gameObject.GetComponent<Animator>().SetBool("R", true);
+                    transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+                }
+            }
+            else if (transform.position.x == -15)
+            {
+                gameObject.GetComponent<Animator>().SetBool("R", true);
+                transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
+            }
+            else
+            {
+                gameObject.GetComponent<Animator>().SetBool("L", true);
+                transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
+            }
+        }
     }
     private void OnAnimatorMove()
     {
