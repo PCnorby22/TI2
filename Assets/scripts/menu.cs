@@ -17,7 +17,6 @@ public class PlayerData
     public int dimdim, bater;
     public bool ativoT, conpradoT, ativoD, conpradoD, ativoB, conpradoB, ativoA, conpradoA;
     public bool[] conquistasA;
-    public float musicSliderS, effectsSliderS,masterSliderS;
 }
 class Score
 {
@@ -72,12 +71,6 @@ public class menu : MonoBehaviour
             }
             else
             {
-                masterSlider.value = Player.masterSliderS;
-                musicSlider.value = Player.musicSliderS;
-                effectsSlider.value = Player.effectsSliderS;
-                mixer.SetFloat("master", ((Player.masterSliderS / 100) * 85) - 80);
-                mixer.SetFloat("efeitos", ((Player.effectsSliderS / 100) * 85) - 80);
-                mixer.SetFloat("musica", ((Player.musicSliderS / 100) * 85) - 80);
                 int x = 0;
                 for (int i = 0; i < conquistas.Length; i++)
                 {
@@ -114,10 +107,6 @@ public class menu : MonoBehaviour
             mixer.SetFloat("master", ((masterSlider.value / 100) * 85) - 80);
             mixer.SetFloat("efeitos", ((effectsSlider.value / 100) * 85) - 80);
             mixer.SetFloat("musica", ((musicSlider.value / 100) * 85) - 80);
-            Player.masterSliderS = masterSlider.value;
-            Player.effectsSliderS = effectsSlider.value;
-            Player.musicSliderS = musicSlider.value;
-            classinteira();
             int touchCount = GetActiveTouchCount();
             if (touchCount == 4)
             {
