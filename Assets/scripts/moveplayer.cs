@@ -73,19 +73,6 @@ public class moveplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (this.transform.position.x < -15)
-        {
-            this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
-        }
-        else if (this.transform.position.x > 15)
-        {
-            this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
-        }
-        else if (this.transform.position.x < 14 && this.transform.position.x > -14 && this.transform.position.x !=0)
-        {
-            this.transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
-        }
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 1 * velocidade * Time.timeScale);
         Vector3 dis = inimigo.transform.position - this.transform.position;
         distancia.value = ((int)dis.z);
@@ -246,7 +233,18 @@ public class moveplayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        
+        if (this.transform.position.x < -15)
+        {
+            this.transform.position = new Vector3(-15, this.transform.position.y, this.transform.position.z);
+        }
+        else if (this.transform.position.x > 15)
+        {
+            this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
+        }
+        else if (this.transform.position.x < 14 && this.transform.position.x > -14 && this.transform.position.x != 0)
+        {
+            this.transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
+        }
         T++;
         if (SceneManager.GetActiveScene().name != "faseinfinida")
         {
