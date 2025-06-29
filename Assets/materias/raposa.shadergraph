@@ -1347,10 +1347,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -489.0,
+            "x": -524.0,
             "y": 659.0,
-            "width": 208.0,
-            "height": 336.0
+            "width": 166.0,
+            "height": 152.0
         }
     },
     "m_Slots": [
@@ -1369,7 +1369,7 @@
         "bump map"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {

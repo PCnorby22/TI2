@@ -356,7 +356,7 @@ public class menu : MonoBehaviour
         PlayerData data = Player;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/playerdata.json", json);
-        Debug.Log(Application.persistentDataPath + "/playerdata.json");
+        //Debug.Log(Application.persistentDataPath + "/playerdata.json");
     }
     public void loaddata()
     {
@@ -367,7 +367,10 @@ public class menu : MonoBehaviour
             string json = File.ReadAllText(path);
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
             dimdimP = data.dimdim;
-            dinheiroP.text = "dindin player:\n" + dimdimP;
+            if (SceneManager.GetActiveScene().name == "inicio" || SceneManager.GetActiveScene().name == "menu loja")
+            {
+                dinheiroP.text = "dindin player:\n" + dimdimP;
+            }
             Player = data;
         }
     }

@@ -135,7 +135,7 @@ public class moveplayer : MonoBehaviour
                 }
                 else if (SceneManager.GetActiveScene().name == "fase2")
                 {
-                    SceneManager.LoadScene("fase3");
+                    SceneManager.LoadScene("faseinfinida");
                 }
                 else
                 {
@@ -241,10 +241,10 @@ public class moveplayer : MonoBehaviour
         {
             this.transform.position = new Vector3(15, this.transform.position.y, this.transform.position.z);
         }
-        else if (this.transform.position.x < 14 && this.transform.position.x > -14 && this.transform.position.x != 0)
+        /*else if (this.transform.position.x < 14 && this.transform.position.x > -14 && this.transform.position.x != 0)
         {
             this.transform.position = new Vector3(0, this.transform.position.y, this.transform.position.z);
-        }
+        }*/
         T++;
         if (SceneManager.GetActiveScene().name != "faseinfinida")
         {

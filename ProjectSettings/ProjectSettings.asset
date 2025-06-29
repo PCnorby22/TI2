@@ -40,11 +40,13 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: 8484f5f27d438cf4391aa0dd4b2b0d6b, type: 3}
+    duration: 7
   - logo: {fileID: 21300000, guid: 2d97085f839e6734891a2cad1522d700, type: 3}
     duration: 3
   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
     duration: 2
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 696cff3bd2079f94c988a18c5eb52820, type: 3}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 1929e504139abad44aa2a3168c8bf45b, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
   defaultScreenHeight: 1080
@@ -635,6 +637,9 @@ PlayerSettings:
   - serializedVersion: 3
     m_BuildTarget: Android
     m_Formats: 03000000
+  - serializedVersion: 3
+    m_BuildTarget: WebGL
+    m_Formats: 05000000
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
